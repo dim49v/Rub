@@ -167,6 +167,10 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                                 canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
                                 MainActivity.SN();
                                 break;
+                            case 21:
+                                canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
+                                MainActivity.SN1();
+                                break;
                             case 222:
 
                                 break;
