@@ -35,8 +35,9 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     String strr;
     int x=100, y=100, xx, yy, xq, yq;
     Paint mPaint = new Paint();
-    int[] col = new int[6];;
-    int i, num;
+    int[] col = new int[6];
+    int[] ost_col = new int[6];
+    int i, u, num;
     Bitmap mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
     Bitmap st_01, st_02,st_11,st_12,st_21,st_22;
     Bitmap st1_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
@@ -61,7 +62,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if ( dra) {
+
             xx = canvas.getWidth();
             yy = canvas.getHeight();
             l = 947;
@@ -72,8 +73,19 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawColor(Color.WHITE);
             for (i = 0; i < 6; i++) {
+                ost_col[i] = 0;
+            }
+            for (i = 0; i < 6; i++){
+                for(u = 1; u < 10; u++){
+                    ost_col[MainActivity.kub[i][u]]++;
+                }
+            }
+            mPaint.setTextSize(30);
+            for (i = 0; i < 6; i++) {
                 mPaint.setColor(col[i]);
                 canvas.drawRect(i * xx / 6, 0, (i + 1) * xx / 6, xx / 6, mPaint);
+                mPaint.setColor(Color.BLACK);
+                canvas.drawText(Integer.toString(ost_col[i]), i * xx / 6, xx / 12,mPaint);
             }
             mPaint.setStrokeWidth(6);
             if (sel_col_n < 7) {
@@ -81,7 +93,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 mPaint.setColor(Color.BLACK);
                 canvas.drawRect(sel_col_n * xx / 6, 0, (sel_col_n + 1) * xx / 6, xx / 6, mPaint);
             }
-            mPaint.setColor(Color.BLACK);
+
             mPaint.setStyle(Paint.Style.STROKE);
 
             Fill();
@@ -98,7 +110,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
             xq=(int) (xx * 0.1);
             yq=(int) ((yy - (xx / 6)) * 0.3);
             canvas.drawBitmap(mBitmap2, xq, yq, mPaint);
-            if (MainActivity.resh) {
+            if (MainActivity.reshh) {
                 canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
                 mPaint.setStrokeWidth(2);
                 mPaint.setTextSize(30);
@@ -180,7 +192,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                     MainActivity.tv1.setText("Готово!");
                     MainActivity.scan1 = false;
                     MainActivity.scan = false;
-                    MainActivity.resh = false;
+                    MainActivity.reshh = false;
                     MainActivity.crea = false;
                     new Thread() {
                         @Override
@@ -197,7 +209,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                     }.start();
                 }
             }
-        }
+
     }
 
     private void Fill() {
@@ -342,7 +354,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
 
                             }
                         }
-                        if (MainActivity.resh){
+                        if (MainActivity.reshh){
                             ch1++;
                             deistv=false;
                         }
