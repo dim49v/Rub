@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     private void resh() {
 
         Viv();
-        System.out.println("   start");
         tv1.setText("Ожидание...");
         int main_c=kub[0][5];
         int main_c1;
@@ -303,38 +302,32 @@ public class MainActivity extends AppCompatActivity {
             T();
             reshen.add(6);
         }
-        ch1=0;
-        Viv();
-        System.out.println("   4 storoni vnizu ");
-        reshen.add(222);
+
+        ////////////////////////4 стороны внизу
+
         while (!(kub[0][2]==main_c & kub[0][4]==main_c & kub[0][6]==main_c & kub[0][8]==main_c)) {
             if (kub[0][8] != main_c) {
-                //while (bo2) {
                     main_c1 = Math.max(main_c,kub[2][5])*10 + Math.min(main_c, kub[2][5]);
                     while(Math.max(kub[2][8],kub[5][2])*10 + Math.min(kub[2][8],kub[5][2])!= main_c1){N();reshen.add(5);}
-                    if (kub[2][8]==main_c){
-                        bo2=false;
+                if (kub[2][8] == main_c){
                         N();P();F1();P1();
                         reshen.add(5);reshen.add(2);reshen.add(7);reshen.add(8);
                     }else{
-                        bo2=false;
                         F();F();
                         reshen.add(1);reshen.add(1);
                     }
                     if(!(kub[0][2]==main_c & kub[0][4]==main_c & kub[0][6]==main_c & kub[0][8]==main_c)){
-                        V();SN1();
-                        reshen.add(4);reshen.add(21);
+                        OV();N();
+                        reshen.add(23);reshen.add(5);
                     }
-              //  }
-               // bo2=true;
             }else{
-                V();SN1();
-                reshen.add(4);reshen.add(21);
+                OV();
+                reshen.add(23);
             }
         }
-        Viv();
-        System.out.println("    krest");
-        //////////////////////////////////////////////
+
+        //////////////////////////////////////////////крест
+
         for(u=0;u<4;u++){
             if (kub[0][7]==main_c | kub[1][3]==main_c | kub[2][1]==main_c){
                     if (!(kub[0][7]==main_c & kub[1][3]==kub[1][2] & kub[2][1]==kub[2][2])){
@@ -343,31 +336,21 @@ public class MainActivity extends AppCompatActivity {
                             reshen.add(5);
                         }
                         L();N();L1();
-                        reshen.add(3);
-                        reshen.add(5);
-                        reshen.add(9);
+                        reshen.add(3);reshen.add(5);reshen.add(9);
                     }
             }
-            V();//SN1();
-            reshen.add(4);
+            OV();
+            reshen.add(23);
         }
-        reshen.add(222);
-        Viv();
-        System.out.println("     ugli vnizu");
-        ////////////////////////////////
 
-        System.out.println(reshen.toString());
-        //if (!(kub[0][1]==main_c && kub[0][3]==main_c && kub[0][9]==main_c && kub[0][7]==main_c))
-        //{
+        ////////////////////////////////углы вницу
+
             while (!(kub[0][1]==main_c & kub[0][3]==main_c & kub[0][9]==main_c & kub[0][7]==main_c))
             {
-                //while (!(kub[1][5] == kub[1][2] && kub[2][5] == kub[2][2] && kub[3][5] == kub[3][2] && kub[4][5] == kub[4][2])) {
-                //    SN();
-                //    reshen.add(15);
-                //}
+
                 while (kub[0][7] == main_c) {
-                    V();SN1();
-                    reshen.add(4);reshen.add(21);
+                    OV();
+                    reshen.add(23);
                 }
                 q1 = (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]);
                 q2 = (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]);
@@ -381,38 +364,56 @@ public class MainActivity extends AppCompatActivity {
                     q2 = (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]);
                     q3 = (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c);
                 }
-                if (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]) {
-                    L();
-                    N();
-                    L1();
-                    reshen.add(3);
-                    reshen.add(5);
-                    reshen.add(9);
+                if (kub[1][9] == main_c) {
+                    L();N();L1();
+                    reshen.add(3);reshen.add(5);reshen.add(9);
                 }
-                if (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]) {
-                    F1();
-                    N1();
-                    F();
-                    reshen.add(7);
-                    reshen.add(11);
-                    reshen.add(1);
+                if (kub[2][7] == main_c) {
+                    F1();N1();F();
+                    reshen.add(7);reshen.add(11);reshen.add(1);
                 }
-                if (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c) {
-                    F1();
-                    P1();
-                    N();
-                    N();
-                    P();
-                    F();
-                    reshen.add(7);
-                    reshen.add(8);
-                    reshen.add(5);
-                    reshen.add(5);
-                    reshen.add(2);
-                    reshen.add(1);
+                if (kub[5][1] == main_c) {
+                    F1();P1();N();N();P();F();
+                    reshen.add(7);reshen.add(8);reshen.add(5);reshen.add(5);reshen.add(2);reshen.add(1);
                 }
             }
-        //}
+
+        /////////////////////верхняя сторона
+
+        main_c = kub[5][5];
+        bo1 = true;
+        while(kub[1][4] == kub[1][5] & kub[1][6] == kub[1][5] & kub[2][4] == kub[2][5] & kub[2][6] == kub[2][5] & kub[3][4] == kub[3][5] & kub[3][6] == kub[3][5] & kub[4][4] == kub[4][5] & kub[4][6] == kub[4][5]) {
+            if (!bo1){
+                while(!(kub[2][4] != main_c & kub[1][6] != main_c) & kub[2][4] != kub[2][5] & kub[1][6] != kub[1][5]){
+                    OV();
+                    reshen.add(23);
+                }
+                L();N1();L1();N1();F1();N();F();
+                reshen.add(3);reshen.add(11);reshen.add(9);reshen.add(11);reshen.add(7);reshen.add(5);reshen.add(1);
+            }
+            bo1 = false;
+            if(kub[1][8] != main_c | kub[5][4] != main_c){u = 1;}
+            if(kub[2][8] != main_c | kub[5][2] != main_c){u = 2;}
+            if(kub[3][8] != main_c | kub[5][6] != main_c){u = 3;}
+            if(kub[4][8] != main_c | kub[5][8] != main_c){u = 4;}
+            main_c1 = kub[u][8];
+            while(kub[2][5] != main_c1){
+                OV();
+                reshen.add(23);
+            }
+            while(kub[2][8] != main_c1){
+                N();
+                reshen.add(5);
+            }
+            if (kub[5][2] == kub[1][5]){
+                N();L();N1();L1();N1();F1();N();F();
+                reshen.add(5);reshen.add(3);reshen.add(11);reshen.add(9);reshen.add(11);reshen.add(7);reshen.add(5);reshen.add(1);
+            }else{
+                N1();P1();N();P();N();F();N1();F1();
+                reshen.add(11);reshen.add(8);reshen.add(5);reshen.add(2);reshen.add(5);reshen.add(1);reshen.add(11);reshen.add(7);
+            }
+            bo1 = true;
+        }
 
         reshh = true;
         for (i=0;i<6;i++){
@@ -479,7 +480,7 @@ public class MainActivity extends AppCompatActivity {
         kub[0][9]=dp[0];
         kub[0][8]=dp[1];
         kub[0][7]=dp[2];
-    }
+    }  //1
     static void F1(){
         dp[0]=kub[2][1];
         kub[2][1]=kub[2][3];
@@ -507,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
         kub[5][1]=dp[0];
         kub[5][2]=dp[1];
         kub[5][3]=dp[2];
-    }
+    } //7
     static void P(){
         dp[0]=kub[3][1];
         kub[3][1]=kub[3][7];
@@ -535,7 +536,7 @@ public class MainActivity extends AppCompatActivity {
         kub[0][3]=dp[0];
         kub[0][6]=dp[1];
         kub[0][9]=dp[2];
-    }
+    }  //2
     static void P1(){
         dp[0]=kub[3][1];
         kub[3][1]=kub[3][3];
@@ -563,7 +564,7 @@ public class MainActivity extends AppCompatActivity {
         kub[5][3]=dp[0];
         kub[5][6]=dp[1];
         kub[5][9]=dp[2];
-    }
+    } //8
     static void L(){
         dp[0]=kub[1][1];
         kub[1][1]=kub[1][7];
@@ -591,7 +592,7 @@ public class MainActivity extends AppCompatActivity {
         kub[2][1]=dp[0];
         kub[2][4]=dp[1];
         kub[2][7]=dp[2];
-    }
+    }  //3
     static void L1(){
         dp[0]=kub[1][1];
         kub[1][1]=kub[1][3];
@@ -619,7 +620,7 @@ public class MainActivity extends AppCompatActivity {
         kub[4][9]=dp[0];
         kub[4][6]=dp[1];
         kub[4][3]=dp[2];
-    }
+    } //9
     static void V(){
         dp[0]=kub[0][1];
         kub[0][1]=kub[0][7];
@@ -647,7 +648,7 @@ public class MainActivity extends AppCompatActivity {
         kub[4][1]=dp[0];
         kub[4][2]=dp[1];
         kub[4][3]=dp[2];
-    }
+    }  //4
     static void V1(){
         dp[0]=kub[0][1];
         kub[0][1]=kub[0][3];
@@ -675,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
         kub[2][1]=dp[0];
         kub[2][2]=dp[1];
         kub[2][3]=dp[2];
-    }
+    } //10
     static void N(){
         dp[0]=kub[5][1];
         kub[5][1]=kub[5][7];
@@ -703,7 +704,7 @@ public class MainActivity extends AppCompatActivity {
         kub[2][7]=dp[0];
         kub[2][8]=dp[1];
         kub[2][9]=dp[2];
-    }
+    }  //5
     static void N1(){
         dp[0]=kub[5][1];
         kub[5][1]=kub[5][3];
@@ -731,7 +732,7 @@ public class MainActivity extends AppCompatActivity {
         kub[4][7]=dp[0];
         kub[4][8]=dp[1];
         kub[4][9]=dp[2];
-    }
+    } //11
     static void T(){
         dp[0]=kub[4][1];
         kub[4][1]=kub[4][7];
@@ -759,7 +760,7 @@ public class MainActivity extends AppCompatActivity {
         kub[1][7]=dp[0];
         kub[1][4]=dp[1];
         kub[1][1]=dp[2];
-    }
+    }  //6
     static void T1(){
         dp[0]=kub[4][1];
         kub[4][1]=kub[4][3];
@@ -787,7 +788,7 @@ public class MainActivity extends AppCompatActivity {
         kub[3][3]=dp[0];
         kub[3][6]=dp[1];
         kub[3][9]=dp[2];
-    }
+    } //12
     static void SF(){
         dp[0]=kub[0][4];
         dp[1]=kub[0][5];
@@ -804,7 +805,7 @@ public class MainActivity extends AppCompatActivity {
         kub[3][2]=dp[0];
         kub[3][5]=dp[1];
         kub[3][8]=dp[2];
-    }
+    } //13
     static void SF1(){
         dp[0]=kub[0][4];
         dp[1]=kub[0][5];
@@ -821,7 +822,7 @@ public class MainActivity extends AppCompatActivity {
         kub[1][8]=dp[0];
         kub[1][5]=dp[1];
         kub[1][2]=dp[2];
-    }
+    }//16
     static void SP(){
         dp[0]=kub[0][2];
         dp[1]=kub[0][5];
@@ -838,7 +839,7 @@ public class MainActivity extends AppCompatActivity {
         kub[4][8]=dp[0];
         kub[4][5]=dp[1];
         kub[4][2]=dp[2];
-    }
+    } //14
     static void SP1(){
         dp[0]=kub[0][2];
         dp[1]=kub[0][5];
@@ -855,7 +856,7 @@ public class MainActivity extends AppCompatActivity {
         kub[2][2]=dp[0];
         kub[2][5]=dp[1];
         kub[2][8]=dp[2];
-    }
+    }//17
     static void SN(){
         dp[0]=kub[1][4];
         dp[1]=kub[1][5];
@@ -872,7 +873,7 @@ public class MainActivity extends AppCompatActivity {
         kub[2][4]=dp[0];
         kub[2][5]=dp[1];
         kub[2][6]=dp[2];
-    }
+    } //15
     static void SN1(){
         dp[0]=kub[1][4];
         dp[1]=kub[1][5];
@@ -889,25 +890,25 @@ public class MainActivity extends AppCompatActivity {
         kub[4][4]=dp[0];
         kub[4][5]=dp[1];
         kub[4][6]=dp[2];
-    }
+    }//18
 
     static void OF(){
         F();SF();T1();
-    }
+    } //19
     static void OF1(){
         F1();SF1();T();
-    }
+    }//20
     static void OP(){
         P();SP();L1();
-    }
+    } //21
     static void OP1(){
         P1();SP1();L();
-    }
+    }//22
     static void OV(){
         V();N1();SN1();
-    }
+    } //23
     static void OV1(){
         V1();N();SN();
-    }
+    }//24
 }
 

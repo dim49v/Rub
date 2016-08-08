@@ -39,13 +39,14 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     int[] ost_col = new int[6];
     int i, u, num;
     Bitmap mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
-    Bitmap st_01, st_02,st_11,st_12,st_21,st_22;
+    Bitmap st_01, st_02,st_11,st_12,st_21,st_22,st_31;
     Bitmap st1_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
     Bitmap st1_02 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st2);
     Bitmap st1_11 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st11);
     Bitmap st1_12 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st12);
     Bitmap st1_21 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st21);
     Bitmap st1_22 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st22);
+    Bitmap st1_31 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st31);
     public boolean deistv=false;
     public int sel_col_n=7;
     public static int k, l;
@@ -122,6 +123,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 st_12=Bitmap.createScaledBitmap(st1_12,(int) ((double)st1_12.getWidth()/2 / l * k), (int) ((double)st1_12.getHeight()/2 / l * k), false);
                 st_21=Bitmap.createScaledBitmap(st1_21,(int) ((double)st1_21.getWidth()/2 / l * k), (int) ((double)st1_21.getHeight()/2 / l * k), false);
                 st_22=Bitmap.createScaledBitmap(st1_22,(int) ((double)st1_22.getWidth()/2 / l * k), (int) ((double)st1_22.getHeight()/2 / l * k), false);
+                st_31=Bitmap.createScaledBitmap(st1_31,(int) ((double)st1_31.getWidth()/2 / l * k), (int) ((double)st1_31.getHeight()/2 / l * k), false);
 
                 if (ch1<MainActivity.reshen.size()) {
                     if (!deistv) {
@@ -183,6 +185,11 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                                 canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
                                 MainActivity.SN1();
                                 break;
+                            case 23:
+                                canvas.drawBitmap(st_31, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
+                                MainActivity.OV();
+                                break;
+
                             case 222:
 
                                 break;
