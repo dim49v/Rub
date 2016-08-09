@@ -83,10 +83,11 @@ public class MainActivity extends AppCompatActivity {
     private void resh() {
 
         Viv();
+        System.out.println("   start");
         tv1.setText("Ожидание...");
-        int main_c=kub[0][5];
+        int main_c = kub[0][5];
         int main_c1;
-        int ch1, ch2;
+        int ch1 = 0;
         boolean bo1 = true;
         boolean bo2 = true;
         boolean bo3 = true;
@@ -97,294 +98,277 @@ public class MainActivity extends AppCompatActivity {
                 kub_r[i][u] = kub[i][u];
             }
         }
+        while(ch1!=4) {
+            ch1 = 0;
+            if (kub[0][4] == main_c) {
+                while (kub[1][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                L();
+                L();
+                reshen.add(3);
+                reshen.add(3);
+            }
+            if (kub[1][2] == main_c) {
+                while (kub[1][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                L();
+                L();
+                reshen.add(3);
+                reshen.add(3);
+            }
+            if (kub[1][4] == main_c) {
+                while (kub[1][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                L1();
+                reshen.add(9);
+            }
+            if (kub[1][6] == main_c) {
+                while (kub[1][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                L();
+                reshen.add(3);
+            }
+            if (kub[0][8] == main_c) {
+                while (kub[2][8] == main_c | kub[5][2] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                F();
+                F();
+                reshen.add(1);
+                reshen.add(1);
+            }
+            if (kub[2][2] == main_c) {
+                while (kub[2][8] == main_c | kub[5][2] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                F();
+                F();
+                reshen.add(1);
+                reshen.add(1);
+            }
+            if (kub[2][4] == main_c) {
+                while (kub[2][8] == main_c | kub[5][2] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                F1();
+                reshen.add(7);
+            }
+            if (kub[2][6] == main_c) {
+                while (kub[2][8] == main_c | kub[5][2] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                F();
+                reshen.add(1);
+            }
+            if (kub[0][6] == main_c) {
+                while (kub[3][8] == main_c | kub[5][6] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                P();
+                P();
+                reshen.add(2);
+                reshen.add(2);
+            }
+            if (kub[3][2] == main_c) {
+                while (kub[3][8] == main_c | kub[5][6] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                P();
+                P();
+                reshen.add(2);
+                reshen.add(2);
+            }
+            if (kub[3][4] == main_c) {
+                while (kub[3][8] == main_c | kub[5][6] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                P1();
+                reshen.add(8);
+            }
+            if (kub[3][6] == main_c) {
+                while (kub[3][8] == main_c | kub[5][6] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                P();
+                reshen.add(2);
+            }
+            if (kub[0][2] == main_c) {
+                while (kub[4][8] == main_c | kub[5][8] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                T();
+                T();
+                reshen.add(6);
+                reshen.add(6);
+            }
+            if (kub[4][2] == main_c) {
+                while (kub[4][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                T();
+                T();
+                reshen.add(6);
+                reshen.add(6);
+            }
+            if (kub[4][4] == main_c) {
+                while (kub[4][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                T1();
+                reshen.add(12);
+            }
+            if (kub[4][6] == main_c) {
+                while (kub[4][8] == main_c | kub[5][4] == main_c) {
+                    N();
+                    reshen.add(5);
+                }
+                T();
+                reshen.add(6);
+            }
 
-        if (kub[0][4]==main_c){
-            while (bo1){
-                if (kub[1][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
+            for(i=1; i<5; i++){
+                if(kub[i][8] == main_c){
+                    ch1++;
                 }
-            }bo1=true;
-            L();L();
-            reshen.add(3);
-            reshen.add(3);
-        }
-        if (kub[1][2]==main_c){
-            while (bo1){
-                if (kub[1][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            L();L();
-            reshen.add(3);
-            reshen.add(3);
-        }
-        if (kub[1][4]==main_c){
-            while (bo1){
-                if (kub[1][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            L1();
-            reshen.add(9);
-        }
-        if (kub[1][6]==main_c){
-            while (bo1){
-                if (kub[1][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            L();
-            reshen.add(3);
-        }
-
-        if (kub[0][8]==main_c){
-            while (bo1){
-                if (kub[2][8]!= main_c & kub[5][2]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            F();F();
-            reshen.add(1);
-            reshen.add(1);
-        }
-        if (kub[2][2]==main_c){
-            while (bo1){
-                if (kub[2][8]!= main_c & kub[5][2]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            F();F();
-            reshen.add(1);
-            reshen.add(1);
-        }
-        if (kub[2][4]==main_c){
-            while (bo1){
-                if (kub[2][8]!= main_c & kub[5][2]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            F1();
-            reshen.add(7);
-        }
-        if (kub[2][6]==main_c){
-            while (bo1){
-                if (kub[2][8]!= main_c & kub[5][2]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            F();
-            reshen.add(1);
-        }
-
-        if (kub[0][6]==main_c){
-            while (bo1){
-                if (kub[3][8]!= main_c & kub[5][6]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            P();P();
-            reshen.add(2);
-            reshen.add(2);
-        }
-        if (kub[3][2]==main_c){
-            while (bo1){
-                if (kub[3][8]!= main_c & kub[5][6]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            P();P();
-            reshen.add(2);
-            reshen.add(2);
-        }
-        if (kub[3][4]==main_c){
-            while (bo1){
-                if (kub[3][8]!= main_c & kub[5][6]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            P1();
-            reshen.add(8);
-        }
-        if (kub[3][6]==main_c){
-            while (bo1){
-                if (kub[3][8]!= main_c & kub[5][6]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            P();
-            reshen.add(2);
-        }
-
-        if (kub[0][2]==main_c){
-            while (bo1){
-                if (kub[4][8]!= main_c & kub[5][8]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            T();T();
-            reshen.add(6);
-            reshen.add(6);
-        }
-        if (kub[4][2]==main_c){
-            while (bo1){
-                if (kub[4][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            T();T();
-            reshen.add(6);
-            reshen.add(6);
-        }
-        if (kub[4][4]==main_c){
-            while (bo1){
-                if (kub[4][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
-                }
-            }bo1=true;
-            T1();
-            reshen.add(12);
-        }
-        if (kub[4][6]==main_c){
-            while (bo1){
-                if (kub[4][8]!= main_c & kub[5][4]!=main_c){
-                    bo1=false;
-                }else {
-                    N();
-                    reshen.add(5);
+                if(kub[5][i*2] == main_c){
+                    ch1++;
                 }
             }
-            bo1=true;
-            T();
-            reshen.add(6);
         }
 
-        ////////////////////////4 стороны внизу
-
+        Viv();
+        System.out.println("   4 storoni vnizu ");
         while (!(kub[0][2]==main_c & kub[0][4]==main_c & kub[0][6]==main_c & kub[0][8]==main_c)) {
             if (kub[0][8] != main_c) {
-                    main_c1 = Math.max(main_c,kub[2][5])*10 + Math.min(main_c, kub[2][5]);
-                    while(Math.max(kub[2][8],kub[5][2])*10 + Math.min(kub[2][8],kub[5][2])!= main_c1){N();reshen.add(5);}
-                if (kub[2][8] == main_c){
-                        N();P();F1();P1();
-                        reshen.add(5);reshen.add(2);reshen.add(7);reshen.add(8);
-                    }else{
-                        F();F();
-                        reshen.add(1);reshen.add(1);
-                    }
-                    if(!(kub[0][2]==main_c & kub[0][4]==main_c & kub[0][6]==main_c & kub[0][8]==main_c)){
-                        OV();N();
-                        reshen.add(23);reshen.add(5);
-                    }
+                //while (bo2) {
+                main_c1 = Math.max(main_c,kub[2][5])*10 + Math.min(main_c, kub[2][5]);
+                while(Math.max(kub[2][8],kub[5][2])*10 + Math.min(kub[2][8],kub[5][2])!= main_c1){N();reshen.add(5);}
+                if (kub[2][8]==main_c){
+                    bo2=false;
+                    N();P();F1();P1();
+                    reshen.add(5);reshen.add(2);reshen.add(7);reshen.add(8);
+                }else{
+                    bo2=false;
+                    F();F();
+                    reshen.add(1);reshen.add(1);
+                }
+                if(!(kub[0][2] == main_c & kub[0][4] == main_c & kub[0][6] == main_c & kub[0][8] == main_c)){
+                    ///V();SN1();
+                    ///reshen.add(4);reshen.add(21);
+                    OV();
+                    reshen.add(23);
+                }
+                //  }
+                // bo2=true;
             }else{
+                ///V();SN1();
+                ///reshen.add(4);reshen.add(21);
                 OV();
                 reshen.add(23);
             }
         }
-
-        //////////////////////////////////////////////крест
-
+        Viv();
+        System.out.println("    krest");
+        //////////////////////////////////////////////
         for(u=0;u<4;u++){
             if (kub[0][7]==main_c | kub[1][3]==main_c | kub[2][1]==main_c){
-                    if (!(kub[0][7]==main_c & kub[1][3]==kub[1][2] & kub[2][1]==kub[2][2])){
-                        while (kub[1][9]==main_c | kub[2][7]==main_c | kub[5][1]==main_c){
-                            N();
-                            reshen.add(5);
-                        }
-                        L();N();L1();
-                        reshen.add(3);reshen.add(5);reshen.add(9);
+                if (!(kub[0][7]==main_c & kub[1][3]==kub[1][2] & kub[2][1]==kub[2][2])){
+                    while (kub[1][9]==main_c | kub[2][7]==main_c | kub[5][1]==main_c){
+                        N();
+                        reshen.add(5);
                     }
+                    L();N();L1();
+                    reshen.add(3);
+                    reshen.add(5);
+                    reshen.add(9);
+                }
             }
-            OV();
+            OV();//SN1();
             reshen.add(23);
         }
+        Viv();
+        System.out.println("     ugli vnizu");
+        ////////////////////////////////
 
-        ////////////////////////////////углы вницу
+        System.out.println(reshen.toString());
 
-            while (!(kub[0][1]==main_c & kub[0][3]==main_c & kub[0][9]==main_c & kub[0][7]==main_c))
-            {
+        while (!(kub[0][1]==main_c & kub[0][3]==main_c & kub[0][9]==main_c & kub[0][7]==main_c))
+        {
+            while (kub[0][7] == main_c) {
+                ///V();SN1();
+                ///reshen.add(4);reshen.add(21);
+                OV();
+                reshen.add(23);
+            }
+            q1 = (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]);
+            q2 = (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]);
+            q3 = (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c);
 
-                while (kub[0][7] == main_c) {
-                    OV();
-                    reshen.add(23);
-                }
+            while (!(q1 | q2 | q3)) {
+                N();
+                reshen.add(5);
+
                 q1 = (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]);
                 q2 = (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]);
                 q3 = (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c);
-
-                while (!(q1 | q2 | q3)) {
-                    N();
-                    reshen.add(5);
-
-                    q1 = (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]);
-                    q2 = (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]);
-                    q3 = (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c);
-                }
-                if (kub[1][9] == main_c) {
-                    L();N();L1();
-                    reshen.add(3);reshen.add(5);reshen.add(9);
-                }
-                if (kub[2][7] == main_c) {
-                    F1();N1();F();
-                    reshen.add(7);reshen.add(11);reshen.add(1);
-                }
-                if (kub[5][1] == main_c) {
-                    F1();P1();N();N();P();F();
-                    reshen.add(7);reshen.add(8);reshen.add(5);reshen.add(5);reshen.add(2);reshen.add(1);
-                }
             }
-
-        /////////////////////верхняя сторона
+            if (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]) {
+                L();
+                N();
+                L1();
+                reshen.add(3);
+                reshen.add(5);
+                reshen.add(9);
+            }
+            if (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]) {
+                F1();
+                N1();
+                F();
+                reshen.add(7);
+                reshen.add(11);
+                reshen.add(1);
+            }
+            if (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c) {
+                F1();
+                P1();
+                N();
+                N();
+                P();
+                F();
+                reshen.add(7);
+                reshen.add(8);
+                reshen.add(5);
+                reshen.add(5);
+                reshen.add(2);
+                reshen.add(1);
+            }
+        }
+        //}
 
         main_c = kub[5][5];
         bo1 = true;
-        while(kub[1][4] == kub[1][5] & kub[1][6] == kub[1][5] & kub[2][4] == kub[2][5] & kub[2][6] == kub[2][5] & kub[3][4] == kub[3][5] & kub[3][6] == kub[3][5] & kub[4][4] == kub[4][5] & kub[4][6] == kub[4][5]) {
+        while(!(kub[1][4] == kub[1][5] & kub[1][6] == kub[1][5] & kub[2][4] == kub[2][5] & kub[2][6] == kub[2][5] & kub[3][4] == kub[3][5] & kub[3][6] == kub[3][5] & kub[4][4] == kub[4][5] & kub[4][6] == kub[4][5])) {
             if (!bo1){
-                while(!(kub[2][4] != main_c & kub[1][6] != main_c) & kub[2][4] != kub[2][5] & kub[1][6] != kub[1][5]){
+                while((kub[2][4] == main_c | kub[1][6] == main_c) & (kub[2][4] != kub[2][5] & kub[1][6] != kub[1][5])){
                     OV();
                     reshen.add(23);
                 }
@@ -392,41 +376,81 @@ public class MainActivity extends AppCompatActivity {
                 reshen.add(3);reshen.add(11);reshen.add(9);reshen.add(11);reshen.add(7);reshen.add(5);reshen.add(1);
             }
             bo1 = false;
-            if(kub[1][8] != main_c | kub[5][4] != main_c){u = 1;}
-            if(kub[2][8] != main_c | kub[5][2] != main_c){u = 2;}
-            if(kub[3][8] != main_c | kub[5][6] != main_c){u = 3;}
-            if(kub[4][8] != main_c | kub[5][8] != main_c){u = 4;}
-            main_c1 = kub[u][8];
-            while(kub[2][5] != main_c1){
-                OV();
-                reshen.add(23);
+            u = 0;
+            if(kub[1][8] != main_c & kub[5][4] != main_c) {
+                u = 1;
+            }else {
+                if (kub[2][8] != main_c & kub[5][2] != main_c) {
+                    u = 2;
+                }else {
+                    if (kub[3][8] != main_c & kub[5][6] != main_c) {
+                        u = 3;
+                    }else {
+                        if (kub[4][8] != main_c & kub[5][8] != main_c) {
+                            u = 4;
+                        }
+                    }
+                }
             }
-            while(kub[2][8] != main_c1){
-                N();
-                reshen.add(5);
-            }
-            if (kub[5][2] == kub[1][5]){
-                N();L();N1();L1();N1();F1();N();F();
-                reshen.add(5);reshen.add(3);reshen.add(11);reshen.add(9);reshen.add(11);reshen.add(7);reshen.add(5);reshen.add(1);
-            }else{
-                N1();P1();N();P();N();F();N1();F1();
-                reshen.add(11);reshen.add(8);reshen.add(5);reshen.add(2);reshen.add(5);reshen.add(1);reshen.add(11);reshen.add(7);
-            }
-            bo1 = true;
-        }
 
+            if(u != 0) {
+                main_c1 = kub[u][8];
+                while (kub[2][5] != main_c1) {
+                    OV();
+                    reshen.add(23);
+                }
+                while (kub[2][8] != main_c1) {
+                    N();
+                    reshen.add(5);
+                }
+                if (kub[5][2] == kub[1][5]) {
+                    N();
+                    L();
+                    N1();
+                    L1();
+                    N1();
+                    F1();
+                    N();
+                    F();
+                    reshen.add(5);
+                    reshen.add(3);
+                    reshen.add(11);
+                    reshen.add(9);
+                    reshen.add(11);
+                    reshen.add(7);
+                    reshen.add(5);
+                    reshen.add(1);
+                } else {
+                    N1();
+                    P1();
+                    N();
+                    P();
+                    N();
+                    F();
+                    N1();
+                    F1();
+                    reshen.add(11);
+                    reshen.add(8);
+                    reshen.add(5);
+                    reshen.add(2);
+                    reshen.add(5);
+                    reshen.add(1);
+                    reshen.add(11);
+                    reshen.add(7);
+                }
+                bo1 = true;
+            }
+        }
+        Viv();
         reshh = true;
         for (i=0;i<6;i++){
             for (u=1;u<10;u++){
                 kub[i][u] = kub_r[i][u];
             }
         }
-        Viv();
-        System.out.println(reshen.toString());
+       System.out.println(reshen.toString());
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
-
-
     }
 
     static void Viv() {
