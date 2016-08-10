@@ -39,7 +39,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     int[] ost_col = new int[6];
     int i, u, num;
     Bitmap mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
-    Bitmap st_01, st_02,st_11,st_12,st_21,st_22,st_31;
+    Bitmap st_01, st_02, st_11, st_12, st_21, st_22, st_31, st_32, st_41;
     Bitmap st1_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
     Bitmap st1_02 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st2);
     Bitmap st1_11 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st11);
@@ -47,6 +47,8 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     Bitmap st1_21 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st21);
     Bitmap st1_22 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st22);
     Bitmap st1_31 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st31);
+    Bitmap st1_32 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st32);
+    Bitmap st1_41 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st41);
     public boolean deistv=false;
     public int sel_col_n=7;
     public static int k, l;
@@ -102,7 +104,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
                 mPaint.setStrokeWidth(2);
                 mPaint.setTextSize(30);
-                if (!MainActivity.scan) {//+ Integer.toString((int) ((double)st1_01.getWidth()/2 / l * k))+" "+Integer.toString(st1_01.getHeight()/2)
+                if (!MainActivity.scan) {
                     canvas.drawText("Продолжить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
                 } else {
                     canvas.drawText("Завершить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
@@ -124,7 +126,8 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 st_21=Bitmap.createScaledBitmap(st1_21,(int) ((double)st1_21.getWidth()/2 / l * k), (int) ((double)st1_21.getHeight()/2 / l * k), false);
                 st_22=Bitmap.createScaledBitmap(st1_22,(int) ((double)st1_22.getWidth()/2 / l * k), (int) ((double)st1_22.getHeight()/2 / l * k), false);
                 st_31=Bitmap.createScaledBitmap(st1_31,(int) ((double)st1_31.getWidth()/2 / l * k), (int) ((double)st1_31.getHeight()/2 / l * k), false);
-
+                st_32=Bitmap.createScaledBitmap(st1_32,(int) ((double)st1_32.getWidth()/2 / l * k), (int) ((double)st1_32.getHeight()/2 / l * k), false);
+                st_41=Bitmap.createScaledBitmap(st1_41,(int) ((double)st1_41.getWidth()/2 / l * k), (int) ((double)st1_41.getHeight()/2 / l * k), false);
                 if (ch1<MainActivity.reshen.size()) {
                     if (!deistv) {
                         deistv = true;
@@ -181,13 +184,21 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                                 canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
                                 MainActivity.SN();
                                 break;
-                            case 21:
+                            case 18:
                                 canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
                                 MainActivity.SN1();
+                                break;
+                            case 21:
+                                canvas.drawBitmap(st_41, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
+                                MainActivity.OP();
                                 break;
                             case 23:
                                 canvas.drawBitmap(st_31, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
                                 MainActivity.OV();
+                                break;
+                            case 24:
+                                canvas.drawBitmap(st_32, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
+                                MainActivity.OV1();
                                 break;
 
                             case 222:
@@ -220,36 +231,14 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     }
 
     private void Fill() {
-        FloodFill(mBitmap2, MainActivity.s.point_r(0), Color.TRANSPARENT, col[MainActivity.kub[0][1]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(1), Color.TRANSPARENT, col[MainActivity.kub[0][2]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(2), Color.TRANSPARENT, col[MainActivity.kub[0][3]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(3), Color.TRANSPARENT, col[MainActivity.kub[0][4]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(4), Color.TRANSPARENT, col[MainActivity.kub[0][5]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(5), Color.TRANSPARENT, col[MainActivity.kub[0][6]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(6), Color.TRANSPARENT, col[MainActivity.kub[0][7]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(7), Color.TRANSPARENT, col[MainActivity.kub[0][8]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(8), Color.TRANSPARENT, col[MainActivity.kub[0][9]]);
-
-        FloodFill(mBitmap2, MainActivity.s.point_r(9), Color.TRANSPARENT, col[MainActivity.kub[2][1]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(10), Color.TRANSPARENT, col[MainActivity.kub[2][2]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(11), Color.TRANSPARENT, col[MainActivity.kub[2][3]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(12), Color.TRANSPARENT, col[MainActivity.kub[2][4]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(13), Color.TRANSPARENT, col[MainActivity.kub[2][5]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(14), Color.TRANSPARENT, col[MainActivity.kub[2][6]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(15), Color.TRANSPARENT, col[MainActivity.kub[2][7]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(16), Color.TRANSPARENT, col[MainActivity.kub[2][8]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(17), Color.TRANSPARENT, col[MainActivity.kub[2][9]]);
-
-        FloodFill(mBitmap2, MainActivity.s.point_r(18), Color.TRANSPARENT, col[MainActivity.kub[3][1]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(19), Color.TRANSPARENT, col[MainActivity.kub[3][2]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(20), Color.TRANSPARENT, col[MainActivity.kub[3][3]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(21), Color.TRANSPARENT, col[MainActivity.kub[3][4]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(22), Color.TRANSPARENT, col[MainActivity.kub[3][5]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(23), Color.TRANSPARENT, col[MainActivity.kub[3][6]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(24), Color.TRANSPARENT, col[MainActivity.kub[3][7]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(25), Color.TRANSPARENT, col[MainActivity.kub[3][8]]);
-        FloodFill(mBitmap2, MainActivity.s.point_r(26), Color.TRANSPARENT, col[MainActivity.kub[3][9]]);
-
+        for(u=0; u<9; u++) {
+            FloodFill(mBitmap2, MainActivity.s.point_r(u), Color.TRANSPARENT, col[MainActivity.kub[0][u+1]]);
+        }
+        for (i=1; i<3; i++) {
+            for(u=0; u<9; u++) {
+                FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), Color.TRANSPARENT, col[MainActivity.kub[i+1][u+1]]);
+            }
+        }
     }
 
     private void FloodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor)

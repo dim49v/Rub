@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public static int dp[] = new int[9];
     public static int colo[] = new int[]{Color.CYAN, Color.BLUE, Color.GREEN, Color.rgb(230,140,0), Color.YELLOW, Color.RED};
     static int i, u;
-    static boolean q1,q2,q3,q4,q5;
+
     static Csl s;// = new Csl();
     static Csl1 s1;
     public static boolean crea = false;
@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     public static Button bt1, bt2;
     public static TextView tv1;
     public static ArrayList<Integer> reshen = new ArrayList<Integer>();
+
+    private int main_c1, main_c, ch1, ch2, ch3, ch4;
+    private int krest[][] = new int[3][4];
+    private boolean bo1, q1, q2, q3, q4, q5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (scan && scan1){
             bt2.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             bt2.setVisibility(View.INVISIBLE);
         }
     }
@@ -81,17 +85,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resh() {
-
         Viv();
-        System.out.println("   start");
         tv1.setText("Ожидание...");
-        int main_c = kub[0][5];
-        int main_c1;
-        int ch1 = 0;
-        boolean bo1 = true;
-        boolean bo2 = true;
-        boolean bo3 = true;
-        boolean bo4 = true;
+
+        main_c = kub[0][5];
+        ch1 = 0;
+        bo1 = true;
+        reshen.clear();
+        //boolean bo2 = true;
+        //boolean bo3 = true;
+        //boolean bo4 = true;
 
         for (i=0;i<6;i++){
             for (u=1;u<10;u++){
@@ -255,40 +258,31 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        Viv();
-        System.out.println("   4 storoni vnizu ");
+        //////////////////////4 storoni vnizu
+
         while (!(kub[0][2]==main_c & kub[0][4]==main_c & kub[0][6]==main_c & kub[0][8]==main_c)) {
             if (kub[0][8] != main_c) {
-                //while (bo2) {
                 main_c1 = Math.max(main_c,kub[2][5])*10 + Math.min(main_c, kub[2][5]);
                 while(Math.max(kub[2][8],kub[5][2])*10 + Math.min(kub[2][8],kub[5][2])!= main_c1){N();reshen.add(5);}
                 if (kub[2][8]==main_c){
-                    bo2=false;
                     N();P();F1();P1();
                     reshen.add(5);reshen.add(2);reshen.add(7);reshen.add(8);
                 }else{
-                    bo2=false;
                     F();F();
                     reshen.add(1);reshen.add(1);
                 }
                 if(!(kub[0][2] == main_c & kub[0][4] == main_c & kub[0][6] == main_c & kub[0][8] == main_c)){
-                    ///V();SN1();
-                    ///reshen.add(4);reshen.add(21);
                     OV();
                     reshen.add(23);
                 }
-                //  }
-                // bo2=true;
             }else{
-                ///V();SN1();
-                ///reshen.add(4);reshen.add(21);
                 OV();
                 reshen.add(23);
             }
         }
-        Viv();
-        System.out.println("    krest");
-        //////////////////////////////////////////////
+
+        ////////////////////////// krest
+
         for(u=0;u<4;u++){
             if (kub[0][7]==main_c | kub[1][3]==main_c | kub[2][1]==main_c){
                 if (!(kub[0][7]==main_c & kub[1][3]==kub[1][2] & kub[2][1]==kub[2][2])){
@@ -302,20 +296,15 @@ public class MainActivity extends AppCompatActivity {
                     reshen.add(9);
                 }
             }
-            OV();//SN1();
+            OV();
             reshen.add(23);
         }
-        Viv();
-        System.out.println("     ugli vnizu");
-        ////////////////////////////////
 
-        System.out.println(reshen.toString());
+        ////////////////////////////////ugli vnizu
 
         while (!(kub[0][1]==main_c & kub[0][3]==main_c & kub[0][9]==main_c & kub[0][7]==main_c))
         {
             while (kub[0][7] == main_c) {
-                ///V();SN1();
-                ///reshen.add(4);reshen.add(21);
                 OV();
                 reshen.add(23);
             }
@@ -326,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
             while (!(q1 | q2 | q3)) {
                 N();
                 reshen.add(5);
-
                 q1 = (kub[1][9] == main_c & kub[2][7] == kub[2][5] & kub[5][1] == kub[1][5]);
                 q2 = (kub[1][9] == kub[1][5] & kub[2][7] == main_c & kub[5][1] == kub[2][5]);
                 q3 = (kub[1][9] == kub[2][5] & kub[2][7] == kub[1][5] & kub[5][1] == main_c);
@@ -362,13 +350,14 @@ public class MainActivity extends AppCompatActivity {
                 reshen.add(1);
             }
         }
-        //}
+
+        //////////////////verhnii ryad
 
         main_c = kub[5][5];
         bo1 = true;
         while(!(kub[1][4] == kub[1][5] & kub[1][6] == kub[1][5] & kub[2][4] == kub[2][5] & kub[2][6] == kub[2][5] & kub[3][4] == kub[3][5] & kub[3][6] == kub[3][5] & kub[4][4] == kub[4][5] & kub[4][6] == kub[4][5])) {
             if (!bo1){
-                while((kub[2][4] == main_c | kub[1][6] == main_c) & (kub[2][4] != kub[2][5] & kub[1][6] != kub[1][5])){
+                while(kub[2][4] == kub[2][5] & kub[1][6] == kub[1][5]){
                     OV();
                     reshen.add(23);
                 }
@@ -392,14 +381,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
             if(u != 0) {
                 main_c1 = kub[u][8];
                 while (kub[2][5] != main_c1) {
                     OV();
                     reshen.add(23);
                 }
-                while (kub[2][8] != main_c1) {
+                while (kub[2][8] != main_c1 | kub[5][2] == main_c) {
                     N();
                     reshen.add(5);
                 }
@@ -441,6 +429,61 @@ public class MainActivity extends AppCompatActivity {
                 bo1 = true;
             }
         }
+
+        ///////////////////////////////poyas
+
+        OP();
+        OP();
+        reshen.add(21); reshen.add(21);
+
+        krest[0][0] = kub[0][4] + kub[1][2] - main_c;
+        krest[0][1] = kub[0][8] + kub[2][2] - main_c;
+        krest[0][2] = kub[0][6] + kub[3][2] - main_c;
+        krest[0][3] = kub[0][2] + kub[4][2] - main_c;
+
+        krest[1][0] = kub[1][5];
+        krest[1][1] = kub[2][5];
+        krest[1][2] = kub[3][5];
+        krest[1][3] = kub[4][5];
+
+        for(i=0; i<4; i++){
+            for(u=0; u<4; u++){
+                if(krest[0][0] == krest[1][1] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][2] & krest[0][3] == krest[1][3]){
+                    ch1 = 1;
+                    ch2 = u;
+                    ch3 = i;
+                }
+                if(krest[0][0] == krest[1][1] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][3] & krest[0][3] == krest[1][2]){
+                    ch1 = 2;
+                    ch2 = u;
+                    ch3 = i;
+                }
+                if(krest[0][0] == krest[1][0] & krest[0][1] == krest[1][1] & krest[0][2] == krest[1][2] & krest[0][3] == krest[1][3]){
+                    ch1 = 3;
+                    ch2 = u;
+                    ch3 = i;
+                }
+
+                ch4 = krest[0][0];
+                krest[0][0] = krest[0][1];
+                krest[0][1] = krest[0][2];
+                krest[0][2] = krest[0][3];
+                krest[0][3] = ch4;
+            }
+            ch4 = krest[1][0];
+            krest[1][0] = krest[1][1];
+            krest[1][1] = krest[1][2];
+            krest[1][2] = krest[1][3];
+            krest[1][3] = ch4;
+        }
+        ////////1-pomenyat mestami 2 kletki
+        ////////2-pomenyat mestami 4 kletki
+        ////////3-vse norm
+        System.out.println("__________________");
+        System.out.println(ch1);
+
+
+
         Viv();
         reshh = true;
         for (i=0;i<6;i++){
