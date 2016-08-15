@@ -282,10 +282,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ////////////////////////// krest
-
+        ch1 = 0;
         for(u=0;u<4;u++){
             if (kub[0][7]==main_c | kub[1][3]==main_c | kub[2][1]==main_c){
                 if (!(kub[0][7]==main_c & kub[1][3]==kub[1][2] & kub[2][1]==kub[2][2])){
+                    ch1 = 0;
                     while (kub[1][9]==main_c | kub[2][7]==main_c | kub[5][1]==main_c){
                         N();
                         reshen.add(5);
@@ -298,6 +299,11 @@ public class MainActivity extends AppCompatActivity {
             }
             OV();
             reshen.add(23);
+            ch1++;
+        }
+        for(i=0; i<ch1; i++){
+            reshen.remove(reshen.size()-1);
+            OV1();
         }
 
         ////////////////////////////////ugli vnizu
@@ -479,12 +485,82 @@ public class MainActivity extends AppCompatActivity {
         ////////1-pomenyat mestami 2 kletki
         ////////2-pomenyat mestami 4 kletki
         ////////3-vse norm
-        System.out.println("__________________");
-        System.out.println(ch1);
-
-
 
         Viv();
+        System.out.println("__________________");
+        System.out.println(ch1+"_"+ch2+"_"+ch3);
+        switch (ch1){
+            case 1:
+                for (i=0; i<ch3; i++){
+                    OV();
+                    reshen.add(23);
+                }
+                if(ch3>ch2){
+                    for (i=0; i<ch3-ch2; i++){
+                        V1();
+                        reshen.add(10);
+                    }
+                }else{
+                    for (i=0; i<ch2-ch3; i++){
+                        V();
+                        reshen.add(4);
+                    }
+                }
+                V(); F(); P(); V(); P1(); V1(); F1();
+                reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
+                break;
+            case 2:
+                for (i=0; i<ch3; i++){
+                    OV();
+                    reshen.add(23);
+                }
+                if(ch3>ch2){
+                    for (i=0; i<ch3-ch2; i++){
+                        V1();
+                        reshen.add(10);
+                    }
+                }else{
+                    for (i=0; i<ch2-ch3; i++){
+                        V();
+                        reshen.add(4);
+                    }
+                }
+                V(); F(); P(); V(); P1(); V1(); F1();
+                reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
+                V(); V();
+                reshen.add(4); reshen.add(4);
+                V(); F(); P(); V(); P1(); V1(); F1();
+                reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
+                V(); V();
+                reshen.add(4); reshen.add(4);
+                break;
+            case 3:
+               for (i=0; i<ch2+ch3; i++){
+                        V();
+                        reshen.add(4);
+                    }
+                break;
+        }
+        ch1 = 0;
+        for (i=0; i<4; i++){
+            ch1++;
+            if (kub[0][6] != main_c){
+                for (u=0; u<4; u++){
+                    P(); SN();
+                    reshen.add(2); reshen.add(15);
+                }
+                ch1 = 0;
+            }
+            V();
+            reshen.add(4);
+        }
+        for(i=0; i<ch1; i++){
+            reshen.remove(reshen.size() - 1);
+        }
+        Viv();
+
+
+
         reshh = true;
         for (i=0;i<6;i++){
             for (u=1;u<10;u++){
