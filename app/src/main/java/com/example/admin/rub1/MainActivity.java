@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             s.Csl_c(l, k);
             crea = true;
             s1 = new Csl1();
-            s1.Csl_c(l,k);
+            s1.Csl_c(l, k);
         }
     }
 
@@ -442,6 +442,8 @@ public class MainActivity extends AppCompatActivity {
         OP();
         reshen.add(21); reshen.add(21);
 
+        //////////////////////////////perevorot
+
         krest[0][0] = kub[0][4] + kub[1][2] - main_c;
         krest[0][1] = kub[0][8] + kub[2][2] - main_c;
         krest[0][2] = kub[0][6] + kub[3][2] - main_c;
@@ -455,17 +457,17 @@ public class MainActivity extends AppCompatActivity {
         for(i=0; i<4; i++){
             for(u=0; u<4; u++){
                 if(krest[0][0] == krest[1][1] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][2] & krest[0][3] == krest[1][3]){
-                    ch1 = 1;
+                    ch1 = 1;  ////////1-pomenyat mestami 2 kletki
                     ch2 = u;
                     ch3 = i;
                 }
                 if(krest[0][0] == krest[1][1] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][3] & krest[0][3] == krest[1][2]){
-                    ch1 = 2;
+                    ch1 = 2;  ////////2-pomenyat mestami 4 kletki
                     ch2 = u;
                     ch3 = i;
                 }
                 if(krest[0][0] == krest[1][0] & krest[0][1] == krest[1][1] & krest[0][2] == krest[1][2] & krest[0][3] == krest[1][3]){
-                    ch1 = 3;
+                    ch1 = 3;  ////////3-vse norm
                     ch2 = u;
                     ch3 = i;
                 }
@@ -482,13 +484,6 @@ public class MainActivity extends AppCompatActivity {
             krest[1][2] = krest[1][3];
             krest[1][3] = ch4;
         }
-        ////////1-pomenyat mestami 2 kletki
-        ////////2-pomenyat mestami 4 kletki
-        ////////3-vse norm
-
-        Viv();
-        System.out.println("__________________");
-        System.out.println(ch1+"_"+ch2+"_"+ch3);
         switch (ch1){
             case 1:
                 for (i=0; i<ch3; i++){
@@ -508,6 +503,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 V(); F(); P(); V(); P1(); V1(); F1();
                 reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
+                while(kub[1][2] + kub[0][4] - main_c != kub[1][5] ){
+                    V();
+                    reshen.add(4);
+                }
                 break;
             case 2:
                 for (i=0; i<ch3; i++){
@@ -533,6 +532,10 @@ public class MainActivity extends AppCompatActivity {
                 reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
                 V(); V();
                 reshen.add(4); reshen.add(4);
+                while(kub[1][2] + kub[0][4] - main_c != kub[1][5]){
+                    V();
+                    reshen.add(4);
+                }
                 break;
             case 3:
                for (i=0; i<ch2+ch3; i++){
@@ -541,6 +544,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 break;
         }
+
+        //////////////////////////verhniy krest(bez povorota)
+
         ch1 = 0;
         for (i=0; i<4; i++){
             ch1++;
@@ -557,10 +563,115 @@ public class MainActivity extends AppCompatActivity {
         for(i=0; i<ch1; i++){
             reshen.remove(reshen.size() - 1);
         }
+
+        //////////////////////////verhniy krest polnostyu
+
+        ch2 = 0;
+        for (i=0; i<4; i++){
+            if (kub[1][3] == main_c){
+                ch1=Math.max(kub[0][7], kub[2][1]) * 10 + Math.min(kub[0][7], kub[2][1]);
+            }else{
+                if(kub[0][7] == main_c){
+                    ch1=Math.max(kub[1][3], kub[2][1]) * 10 + Math.min(kub[1][3], kub[2][1]);
+                }else{
+                    ch1=Math.max(kub[1][3], kub[0][7]) * 10 + Math.min(kub[1][3], kub[0][7]);
+                }
+            }
+            krest[0][i] = ch1;
+            krest[1][i] = Math.max(kub[1][5], kub[2][5]) * 10 + Math.min(kub[1][5], kub[2][5]);
+            System.out.println(Integer.toString(krest[0][i]));
+            System.out.println(Integer.toString(krest[1][i]));
+            if (krest[0][i] == krest[1][i]){
+                ch2++;
+                ch3 = i;
+            }
+            OV();
+        }
+
+        if(ch2 < 4) {
+            if (ch2 == 1) {
+                for (i = 0; i < ch3 + 1; i++) {
+                    OV();
+                    reshen.add(23);
+                }
+            } else {
+                if (krest[1][3] == krest[0][0]) {
+                    V1();
+                    reshen.add(7);
+                    po_st();
+                    V();
+                    reshen.add(1);
+                }
+                if (krest[1][3] == krest[0][1]) {
+                    V();
+                    reshen.add(1);
+                    pr_st();
+                    V1();
+                    reshen.add(7);
+                }
+                if (krest[1][3] == krest[0][2]) {
+                    V();
+                    reshen.add(1);
+                    pr_st();
+                    V1();
+                    reshen.add(7);
+                }
+            }
+            for (i=0; i<4; i++){
+                if (kub[1][3] == main_c){
+                    ch1=Math.max(kub[0][7], kub[2][1]) * 10 + Math.min(kub[0][7], kub[2][1]);
+                }else{
+                    if(kub[0][7] == main_c){
+                        ch1=Math.max(kub[1][3], kub[2][1]) * 10 + Math.min(kub[1][3], kub[2][1]);
+                    }else{
+                        ch1=Math.max(kub[1][3], kub[0][7]) * 10 + Math.min(kub[1][3], kub[0][7]);
+                    }
+                }
+                krest[0][i] = ch1;
+                krest[1][i] = Math.max(kub[1][5], kub[2][5]) * 10 + Math.min(kub[1][5], kub[2][5]);
+                System.out.println(Integer.toString(krest[0][i]));
+                System.out.println(Integer.toString(krest[1][i]));
+                if (krest[0][i] == krest[1][i]){
+                    ch2++;
+                    ch3 = i;
+                }
+                OV();
+            }
+            if (krest[0][0] == krest[1][2] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][1]){
+                po_st();
+                System.out.println("po_st");
+            }
+            if (krest[0][0] == krest[1][1] & krest[0][1] == krest[1][2] & krest[0][2] == krest[1][0]){
+                pr_st();
+                System.out.println("pr_st");
+            }
+        }
+
+        ////////////////////////////vistavleni ugli
+
+        ch1 = 0;
+        for (i=0; i<4; i++){
+            ch1++;
+            if (kub[0][9] != main_c){
+                if (kub[2][3] == main_c){
+                    ch2 = 1;
+                }else{
+                    ch2 = 2;
+                }
+                for (u=0; u<ch2*2; u++){
+                   P(); F1(); P1(); F();
+                    reshen.add(2); reshen.add(7); reshen.add(8); reshen.add(1);
+                }
+                ch1 = 0;
+            }
+            V();
+            reshen.add(4);
+        }
+        for(i=0; i<ch1; i++){
+            reshen.remove(reshen.size() - 1);
+        }
+
         Viv();
-
-
-
         reshh = true;
         for (i=0;i<6;i++){
             for (u=1;u<10;u++){
@@ -572,8 +683,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void po_st() {
+        P1(); F1(); L1(); F(); P(); F1(); L(); F();
+        reshen.add(8); reshen.add(7); reshen.add(9); reshen.add(1); reshen.add(2); reshen.add(7); reshen.add(3); reshen.add(1);
+    }
+    private void pr_st() {
+        F1(); L1(); F(); P1(); F1(); L(); F(); P();
+        reshen.add(7); reshen.add(9); reshen.add(1); reshen.add(8); reshen.add(7); reshen.add(3); reshen.add(1); reshen.add(2);
+    }
+
     static void Viv() {
-        System.out.println();
+        System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
         System.out.println("        "+kub[0][1]+" "+kub[0][2]+" "+kub[0][3]);
         System.out.println("        "+kub[0][4]+" "+kub[0][5]+" "+kub[0][6]);
         System.out.println("        "+kub[0][7]+" "+kub[0][8]+" "+kub[0][9]);
