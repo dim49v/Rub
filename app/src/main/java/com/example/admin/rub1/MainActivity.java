@@ -503,10 +503,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 V(); F(); P(); V(); P1(); V1(); F1();
                 reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
-                while(kub[1][2] + kub[0][4] - main_c != kub[1][5] ){
+                /*while(kub[1][2] + kub[0][4] - main_c != kub[1][5] ){
                     V();
                     reshen.add(4);
-                }
+                }*/
                 break;
             case 2:
                 for (i=0; i<ch3; i++){
@@ -532,10 +532,10 @@ public class MainActivity extends AppCompatActivity {
                 reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
                 V(); V();
                 reshen.add(4); reshen.add(4);
-                while(kub[1][2] + kub[0][4] - main_c != kub[1][5]){
+                /*while(kub[1][2] + kub[0][4] - main_c != kub[1][5]){
                     V();
                     reshen.add(4);
-                }
+                }*/
                 break;
             case 3:
                for (i=0; i<ch2+ch3; i++){
@@ -559,9 +559,6 @@ public class MainActivity extends AppCompatActivity {
             }
             V();
             reshen.add(4);
-        }
-        for(i=0; i<ch1; i++){
-            reshen.remove(reshen.size() - 1);
         }
 
         //////////////////////////verhniy krest polnostyu
@@ -666,9 +663,6 @@ public class MainActivity extends AppCompatActivity {
             }
             V();
             reshen.add(4);
-        }
-        for(i=0; i<ch1; i++){
-            reshen.remove(reshen.size() - 1);
         }
 
         Viv();
