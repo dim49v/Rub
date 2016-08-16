@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
     public static int kub_r[][] = new int [6][10];
     public static int dp[] = new int[9];
     public static int colo[] = new int[]{Color.CYAN, Color.BLUE, Color.GREEN, Color.rgb(230,140,0), Color.YELLOW, Color.RED};
-    static int i, u;
+    public static int kol_d;
 
+    static int i, u;
     static Csl s;// = new Csl();
     static Csl1 s1;
     public static boolean crea = false;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int main_c1, main_c, ch1, ch2, ch3, ch4;
     private int krest[][] = new int[3][4];
-    private boolean bo1, q1, q2, q3, q4, q5;
+    private boolean bo1, q1, q2, q3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -503,10 +504,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 V(); F(); P(); V(); P1(); V1(); F1();
                 reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
-                /*while(kub[1][2] + kub[0][4] - main_c != kub[1][5] ){
-                    V();
-                    reshen.add(4);
-                }*/
+
                 break;
             case 2:
                 for (i=0; i<ch3; i++){
@@ -538,11 +536,11 @@ public class MainActivity extends AppCompatActivity {
                 }*/
                 break;
             case 3:
-               for (i=0; i<ch2+ch3; i++){
-                        V();
-                        reshen.add(4);
-                    }
-                break;
+               break;
+        }
+        while(kub[1][2] + kub[0][4] - main_c != kub[1][5] ) {
+            V();
+            reshen.add(4);
         }
 
         //////////////////////////verhniy krest(bez povorota)
@@ -562,6 +560,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //////////////////////////verhniy krest polnostyu
+        Viv();
 
         ch2 = 0;
         for (i=0; i<4; i++){
@@ -576,8 +575,8 @@ public class MainActivity extends AppCompatActivity {
             }
             krest[0][i] = ch1;
             krest[1][i] = Math.max(kub[1][5], kub[2][5]) * 10 + Math.min(kub[1][5], kub[2][5]);
-            System.out.println(Integer.toString(krest[0][i]));
-            System.out.println(Integer.toString(krest[1][i]));
+            //System.out.println(Integer.toString(krest[0][i]));
+            //System.out.println(Integer.toString(krest[1][i]));
             if (krest[0][i] == krest[1][i]){
                 ch2++;
                 ch3 = i;
@@ -626,8 +625,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 krest[0][i] = ch1;
                 krest[1][i] = Math.max(kub[1][5], kub[2][5]) * 10 + Math.min(kub[1][5], kub[2][5]);
-                System.out.println(Integer.toString(krest[0][i]));
-                System.out.println(Integer.toString(krest[1][i]));
+                //System.out.println(Integer.toString(krest[0][i]));
+                //System.out.println(Integer.toString(krest[1][i]));
                 if (krest[0][i] == krest[1][i]){
                     ch2++;
                     ch3 = i;
@@ -636,11 +635,11 @@ public class MainActivity extends AppCompatActivity {
             }
             if (krest[0][0] == krest[1][2] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][1]){
                 po_st();
-                System.out.println("po_st");
+                //System.out.println("po_st");
             }
             if (krest[0][0] == krest[1][1] & krest[0][1] == krest[1][2] & krest[0][2] == krest[1][0]){
                 pr_st();
-                System.out.println("pr_st");
+                //System.out.println("pr_st");
             }
         }
 
@@ -665,6 +664,12 @@ public class MainActivity extends AppCompatActivity {
             reshen.add(4);
         }
 
+        ///////////////////////////konec
+
+        kol_d = reshen.size();
+        System.out.println(reshen.toString());
+        simply();
+        System.out.println(reshen.toString());
         Viv();
         reshh = true;
         for (i=0;i<6;i++){
@@ -672,9 +677,59 @@ public class MainActivity extends AppCompatActivity {
                 kub[i][u] = kub_r[i][u];
             }
         }
-       System.out.println(reshen.toString());
+
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
+    }
+
+    private void simply() {
+        q1 = true;
+        reshen.add(111);
+        reshen.add(111);
+        while (q1){
+            q1 = false;
+            for (i=0; i<reshen.size()-2; i++){
+                ch2 = 0;
+                if (reshen.get(i) == reshen.get(i+1) & reshen.get(i) == reshen.get(i+2)){
+                    if (reshen.get(i) < 7){
+                        reshen.remove(i);
+                        reshen.remove(i);
+                        reshen.set(i, reshen.get(i) + 6);
+                        ch2 = 1;
+                    }
+                    if (reshen.get(i) >= 7 & reshen.get(i) < 13 & ch2 == 0){
+                        reshen.remove(i);
+                        reshen.remove(i);
+                        reshen.set(i, reshen.get(i) - 6);
+                        ch2 = 1;
+                    }
+                    if (reshen.get(i) == 23 & reshen.get(i+1) == 23 & reshen.get(i+2) == 23 & ch2 == 0){
+                        reshen.remove(i);
+                        reshen.remove(i);
+                        reshen.set(i, 24);
+                    }
+                    q1 = true;
+                }
+                if (reshen.get(i) < 7 & reshen.get(i+1)-6 == reshen.get(i)){
+                    reshen.remove(i);
+                    reshen.remove(i);
+                    q1 = true;
+                }
+                if (reshen.get(i) > 7 & reshen.get(i)<13 & reshen.get(i+1)+6 == reshen.get(i)){
+                    reshen.remove(i);
+                    reshen.remove(i);
+                    q1 = true;
+                }
+                if (reshen.get(i) == 23 & reshen.get(i+1) == 24 | reshen.get(i) == 24 & reshen.get(i+1) == 23){
+                    reshen.remove(i);
+                    reshen.remove(i);
+                    q1 = true;
+                }
+            }
+            //System.out.println("___" + Integer.toString(reshen.size()));
+        }
+        reshen.remove(reshen.size()-1);
+        reshen.remove(reshen.size()-1);
     }
 
     private void po_st() {

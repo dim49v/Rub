@@ -118,7 +118,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
             mPaint.setStrokeWidth(2);
             mPaint.setTextSize(30);
             canvas.drawText("Следующий шаг", xx / 6, (int) (yy * 13.5 / 14), mPaint);
-            canvas.drawText("Шаг " + Integer.toString(ch1) + "(" + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
+            canvas.drawText("Шаг " + Integer.toString(ch1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
             st_01 = Bitmap.createScaledBitmap(st1_01, (int) ((double) st1_01.getWidth() / 2 / l * k), (int) ((double) st1_01.getHeight() / 2 / l * k), false);
             st_02 = Bitmap.createScaledBitmap(st1_02, (int) ((double) st1_02.getWidth() / 2 / l * k), (int) ((double) st1_02.getHeight() / 2 / l * k), false);
             st_11 = Bitmap.createScaledBitmap(st1_11, (int) ((double) st1_11.getWidth() / 2 / l * k), (int) ((double) st1_11.getHeight() / 2 / l * k), false);
