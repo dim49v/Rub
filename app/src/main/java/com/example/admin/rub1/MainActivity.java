@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static int kub[][] = new int[6][10];
     public static int kub_r[][] = new int [6][10];
     public static int dp[] = new int[9];
-    public static int colo[] = new int[]{Color.CYAN, Color.BLUE, Color.GREEN, Color.rgb(230,140,0), Color.YELLOW, Color.RED};
+    public static int colo[] = new int[]{Color.CYAN, Color.BLUE, Color.GREEN, Color.rgb(230,140,0), Color.YELLOW, Color.RED, Color.TRANSPARENT};
     public static int kol_d;
 
     static int i, u;

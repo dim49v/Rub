@@ -35,10 +35,11 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     String strr;
     int x=100, y=100, xx, yy, xq, yq;
     Paint mPaint = new Paint();
-    int[] col = new int[6];
+    int[] col = new int[7];
     int[] ost_col = new int[6];
+    int[] fil = new int[28];
     int i, u, num;
-    Bitmap mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
+    public Bitmap mBitmap;// = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
     Bitmap st_01, st_02, st_11, st_12, st_21, st_22, st_31, st_32, st_41;
     Bitmap st1_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
     Bitmap st1_02 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st2);
@@ -55,190 +56,212 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     public Bitmap mBitmap2;
     boolean col_ch=false;
     boolean dra = true;
+    boolean get_bitmap = true;
     int ch1;
     public Draw(Context context){
         super(context);
-        for(i=0;i<6;i++){
+        for(i=0;i<7;i++){
             col[i]=MainActivity.colo[i];
         }
+        //mBitmap2 = Bitmap.createScaledBitmap(mBitmap, k, k, false);
+        for (i=0; i<28; i++){
+            fil[i] = 6;
+        }
+        mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-    if(dra) {
-        xx = canvas.getWidth();
-        yy = canvas.getHeight();
-        l = 947;
-        k = (int) (xx * 0.8);
-
-        MainActivity.Csl_crea(l, k);
-        mBitmap2 = Bitmap.createScaledBitmap(mBitmap, k, k, false);
-        mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawColor(Color.WHITE);
-        for (i = 0; i < 6; i++) {
-            ost_col[i] = 0;
-        }
-        for (i = 0; i < 6; i++) {
-            for (u = 1; u < 10; u++) {
-                ost_col[MainActivity.kub[i][u]]++;
+        if(dra) {
+            if (get_bitmap) {
+                xx = canvas.getWidth();
+                yy = canvas.getHeight();
+                l = 947;
+                k = (int) (xx * 0.8);
+                MainActivity.Csl_crea(l, k);
+                mBitmap2 = Bitmap.createScaledBitmap(mBitmap, k, k, false);
+                get_bitmap = false;
+                //System.out.println("123456");
             }
-        }
-        mPaint.setTextSize(30);
-        for (i = 0; i < 6; i++) {
-            mPaint.setColor(col[i]);
-            canvas.drawRect(i * xx / 6, 0, (i + 1) * xx / 6, xx / 6, mPaint);
-            mPaint.setColor(Color.BLACK);
-            canvas.drawText(Integer.toString(ost_col[i]), i * xx / 6, xx / 12, mPaint);
-        }
-        mPaint.setStrokeWidth(6);
-        if (sel_col_n < 7) {
-            mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setColor(Color.BLACK);
-            canvas.drawRect(sel_col_n * xx / 6, 0, (sel_col_n + 1) * xx / 6, xx / 6, mPaint);
-        }
-
-        mPaint.setStyle(Paint.Style.STROKE);
-
-        Fill();
-        if (!MainActivity.scan1) {
-            canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
-            mPaint.setStrokeWidth(2);
-            mPaint.setTextSize(30);
-            if (!MainActivity.scan) {
-                canvas.drawText("Продолжить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
-            } else {
-                canvas.drawText("Завершить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
+            mPaint.setStyle(Paint.Style.FILL);
+            canvas.drawColor(Color.WHITE);
+            for (i = 0; i < 6; i++) {
+                ost_col[i] = 0;
             }
-        }
-        xq = (int) (xx * 0.1);
-        yq = (int) ((yy - (xx / 6)) * 0.3);
-        canvas.drawBitmap(mBitmap2, xq, yq, mPaint);
-        if (MainActivity.reshh) {
-            canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
-            mPaint.setStrokeWidth(2);
-            mPaint.setTextSize(30);
-            canvas.drawText("Следующий шаг", xx / 6, (int) (yy * 13.5 / 14), mPaint);
-            canvas.drawText("Шаг " + Integer.toString(ch1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
-            st_01 = Bitmap.createScaledBitmap(st1_01, (int) ((double) st1_01.getWidth() / 2 / l * k), (int) ((double) st1_01.getHeight() / 2 / l * k), false);
-            st_02 = Bitmap.createScaledBitmap(st1_02, (int) ((double) st1_02.getWidth() / 2 / l * k), (int) ((double) st1_02.getHeight() / 2 / l * k), false);
-            st_11 = Bitmap.createScaledBitmap(st1_11, (int) ((double) st1_11.getWidth() / 2 / l * k), (int) ((double) st1_11.getHeight() / 2 / l * k), false);
-            st_12 = Bitmap.createScaledBitmap(st1_12, (int) ((double) st1_12.getWidth() / 2 / l * k), (int) ((double) st1_12.getHeight() / 2 / l * k), false);
-            st_21 = Bitmap.createScaledBitmap(st1_21, (int) ((double) st1_21.getWidth() / 2 / l * k), (int) ((double) st1_21.getHeight() / 2 / l * k), false);
-            st_22 = Bitmap.createScaledBitmap(st1_22, (int) ((double) st1_22.getWidth() / 2 / l * k), (int) ((double) st1_22.getHeight() / 2 / l * k), false);
-            st_31 = Bitmap.createScaledBitmap(st1_31, (int) ((double) st1_31.getWidth() / 2 / l * k), (int) ((double) st1_31.getHeight() / 2 / l * k), false);
-            st_32 = Bitmap.createScaledBitmap(st1_32, (int) ((double) st1_32.getWidth() / 2 / l * k), (int) ((double) st1_32.getHeight() / 2 / l * k), false);
-            st_41 = Bitmap.createScaledBitmap(st1_41, (int) ((double) st1_41.getWidth() / 2 / l * k), (int) ((double) st1_41.getHeight() / 2 / l * k), false);
-            if (ch1 < MainActivity.reshen.size()) {
-                if (!deistv) {
-                    deistv = true;
-                    switch (MainActivity.reshen.get(ch1)) {
-                        case 1:
-                            canvas.drawBitmap(st_01, xq + MainActivity.s1.point_r(4).x, yq + MainActivity.s1.point_r(4).y, mPaint);
-                            MainActivity.F();
-                            break;
-                        case 2:
-                            canvas.drawBitmap(st_12, xq + MainActivity.s1.point_r(3).x, yq + MainActivity.s1.point_r(3).y, mPaint);
-                            MainActivity.P();
-                            break;
-                        case 3:
-                            canvas.drawBitmap(st_11, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
-                            MainActivity.L();
-                            break;
-                        case 4:
-                            canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
-                            MainActivity.V();
-                            break;
-                        case 5:
-                            canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(9).x, yq + MainActivity.s1.point_r(9).y, mPaint);
-                            MainActivity.N();
-                            break;
-                        case 6:
-                            canvas.drawBitmap(st_02, xq + MainActivity.s1.point_r(6).x, yq + MainActivity.s1.point_r(6).y, mPaint);
-                            MainActivity.T();
-                            break;
-                        case 7:
-                            canvas.drawBitmap(st_02, xq + MainActivity.s1.point_r(4).x, yq + MainActivity.s1.point_r(4).y, mPaint);
-                            MainActivity.F1();
-                            break;
-                        case 8:
-                            canvas.drawBitmap(st_11, xq + MainActivity.s1.point_r(3).x, yq + MainActivity.s1.point_r(3).y, mPaint);
-                            MainActivity.P1();
-                            break;
-                        case 9:
-                            canvas.drawBitmap(st_12, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
-                            MainActivity.L1();
-                            break;
-                        case 10:
-                            canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
-                            MainActivity.V1();
-                            break;
-                        case 11:
-                            canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(9).x, yq + MainActivity.s1.point_r(9).y, mPaint);
-                            MainActivity.N1();
-                            break;
-                        case 12:
-                            canvas.drawBitmap(st_01, xq + MainActivity.s1.point_r(6).x, yq + MainActivity.s1.point_r(6).y, mPaint);
-                            MainActivity.T1();
-                            break;
-                        case 15:
-                            canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
-                            MainActivity.SN();
-                            break;
-                        case 18:
-                            canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
-                            MainActivity.SN1();
-                            break;
-                        case 21:
-                            canvas.drawBitmap(st_41, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
-                            MainActivity.OP();
-                            break;
-                        case 23:
-                            canvas.drawBitmap(st_31, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
-                            MainActivity.OV();
-                            break;
-                        case 24:
-                            canvas.drawBitmap(st_32, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
-                            MainActivity.OV1();
-                            break;
-
-                        case 222:
-
-                            break;
-                    }
+            for (i = 0; i < 6; i++) {
+                for (u = 1; u < 10; u++) {
+                    ost_col[MainActivity.kub[i][u]]++;
                 }
-            } else {
-                MainActivity.tv1.setText("Готово!");
-                MainActivity.scan1 = false;
-                MainActivity.scan = false;
-                MainActivity.reshh = false;
-                MainActivity.crea = false;
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            Instrumentation inst = new Instrumentation();
-                            inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+            }
+            mPaint.setTextSize(30);
+            for (i = 0; i < 6; i++) {
+                mPaint.setColor(col[i]);
+                canvas.drawRect(i * xx / 6, 0, (i + 1) * xx / 6, xx / 6, mPaint);
+                mPaint.setColor(Color.BLACK);
+                canvas.drawText(Integer.toString(ost_col[i]), i * xx / 6, xx / 12, mPaint);
+            }
+            mPaint.setStrokeWidth(6);
+            if (sel_col_n < 7) {
+                mPaint.setStyle(Paint.Style.STROKE);
+                mPaint.setColor(Color.BLACK);
+                canvas.drawRect(sel_col_n * xx / 6, 0, (sel_col_n + 1) * xx / 6, xx / 6, mPaint);
+            }
 
-                        } catch (Exception e) {
-                            //Log.e("Exception when sendKeyDownUpSync", e.toString());
+            mPaint.setStyle(Paint.Style.STROKE);
+
+            Fill();
+
+            if (!MainActivity.scan1) {
+
+                canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
+                mPaint.setStrokeWidth(2);
+                mPaint.setTextSize(30);
+                if (!MainActivity.scan) {
+                    canvas.drawText("Продолжить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
+                } else {
+                    canvas.drawText("Завершить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
+                }
+            }
+            xq = (int) (xx * 0.1);
+            yq = (int) ((yy - (xx / 6)) * 0.3);
+            canvas.drawBitmap(mBitmap2, xq, yq, mPaint);
+            if (MainActivity.reshh) {
+                canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
+                mPaint.setStrokeWidth(2);
+                mPaint.setTextSize(30);
+                canvas.drawText("Следующий шаг", xx / 6, (int) (yy * 13.5 / 14), mPaint);
+                //if (ch1<MainActivity.reshen.size()) {
+                //    canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
+                //}
+                st_01 = Bitmap.createScaledBitmap(st1_01, (int) ((double) st1_01.getWidth() / 2 / l * k), (int) ((double) st1_01.getHeight() / 2 / l * k), false);
+                st_02 = Bitmap.createScaledBitmap(st1_02, (int) ((double) st1_02.getWidth() / 2 / l * k), (int) ((double) st1_02.getHeight() / 2 / l * k), false);
+                st_11 = Bitmap.createScaledBitmap(st1_11, (int) ((double) st1_11.getWidth() / 2 / l * k), (int) ((double) st1_11.getHeight() / 2 / l * k), false);
+                st_12 = Bitmap.createScaledBitmap(st1_12, (int) ((double) st1_12.getWidth() / 2 / l * k), (int) ((double) st1_12.getHeight() / 2 / l * k), false);
+                st_21 = Bitmap.createScaledBitmap(st1_21, (int) ((double) st1_21.getWidth() / 2 / l * k), (int) ((double) st1_21.getHeight() / 2 / l * k), false);
+                st_22 = Bitmap.createScaledBitmap(st1_22, (int) ((double) st1_22.getWidth() / 2 / l * k), (int) ((double) st1_22.getHeight() / 2 / l * k), false);
+                st_31 = Bitmap.createScaledBitmap(st1_31, (int) ((double) st1_31.getWidth() / 2 / l * k), (int) ((double) st1_31.getHeight() / 2 / l * k), false);
+                st_32 = Bitmap.createScaledBitmap(st1_32, (int) ((double) st1_32.getWidth() / 2 / l * k), (int) ((double) st1_32.getHeight() / 2 / l * k), false);
+                st_41 = Bitmap.createScaledBitmap(st1_41, (int) ((double) st1_41.getWidth() / 2 / l * k), (int) ((double) st1_41.getHeight() / 2 / l * k), false);
+                if (ch1 < MainActivity.reshen.size()) {
+                    canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
+                    if (!deistv) {
+                        deistv = true;
+                        switch (MainActivity.reshen.get(ch1)) {
+                            case 1:
+                                canvas.drawBitmap(st_01, xq + MainActivity.s1.point_r(4).x, yq + MainActivity.s1.point_r(4).y, mPaint);
+                                MainActivity.F();
+                                break;
+                            case 2:
+                                canvas.drawBitmap(st_12, xq + MainActivity.s1.point_r(3).x, yq + MainActivity.s1.point_r(3).y, mPaint);
+                                MainActivity.P();
+                                break;
+                            case 3:
+                                canvas.drawBitmap(st_11, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
+                                MainActivity.L();
+                                break;
+                            case 4:
+                                canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
+                                MainActivity.V();
+                                break;
+                            case 5:
+                                canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(9).x, yq + MainActivity.s1.point_r(9).y, mPaint);
+                                MainActivity.N();
+                                break;
+                            case 6:
+                                canvas.drawBitmap(st_02, xq + MainActivity.s1.point_r(6).x, yq + MainActivity.s1.point_r(6).y, mPaint);
+                                MainActivity.T();
+                                break;
+                            case 7:
+                                canvas.drawBitmap(st_02, xq + MainActivity.s1.point_r(4).x, yq + MainActivity.s1.point_r(4).y, mPaint);
+                                MainActivity.F1();
+                                break;
+                            case 8:
+                                canvas.drawBitmap(st_11, xq + MainActivity.s1.point_r(3).x, yq + MainActivity.s1.point_r(3).y, mPaint);
+                                MainActivity.P1();
+                                break;
+                            case 9:
+                                canvas.drawBitmap(st_12, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
+                                MainActivity.L1();
+                                break;
+                            case 10:
+                                canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
+                                MainActivity.V1();
+                                break;
+                            case 11:
+                                canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(9).x, yq + MainActivity.s1.point_r(9).y, mPaint);
+                                MainActivity.N1();
+                                break;
+                            case 12:
+                                canvas.drawBitmap(st_01, xq + MainActivity.s1.point_r(6).x, yq + MainActivity.s1.point_r(6).y, mPaint);
+                                MainActivity.T1();
+                                break;
+                            case 15:
+                                canvas.drawBitmap(st_21, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
+                                MainActivity.SN();
+                                break;
+                            case 18:
+                                canvas.drawBitmap(st_22, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
+                                MainActivity.SN1();
+                                break;
+                            case 21:
+                                canvas.drawBitmap(st_41, xq + MainActivity.s1.point_r(1).x, yq + MainActivity.s1.point_r(1).y, mPaint);
+                                MainActivity.OP();
+                                break;
+                            case 23:
+                                canvas.drawBitmap(st_31, xq + MainActivity.s1.point_r(8).x, yq + MainActivity.s1.point_r(8).y, mPaint);
+                                MainActivity.OV();
+                                break;
+                            case 24:
+                                canvas.drawBitmap(st_32, xq + MainActivity.s1.point_r(7).x, yq + MainActivity.s1.point_r(7).y, mPaint);
+                                MainActivity.OV1();
+                                break;
+
+                            case 222:
+
+                                break;
                         }
                     }
+                }
+                if (ch1 > MainActivity.reshen.size()){
+                    MainActivity.tv1.setText("Готово!");
+                    MainActivity.scan1 = false;
+                    MainActivity.scan = false;
+                    MainActivity.reshh = false;
+                    MainActivity.crea = false;
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Instrumentation inst = new Instrumentation();
+                                inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
 
-                }.start();
+                            } catch (Exception e) {
+                                //Log.e("Exception when sendKeyDownUpSync", e.toString());
+                            }
+                        }
+
+                    }.start();
+                }
             }
         }
-    }
     }
 
     private void Fill() {
         for(u=0; u<9; u++) {
-            FloodFill(mBitmap2, MainActivity.s.point_r(u), Color.TRANSPARENT, col[MainActivity.kub[0][u+1]]);
+            if (fil[u+1] != MainActivity.kub[0][u+1]) {
+                FloodFill(mBitmap2, MainActivity.s.point_r(u),  col[fil[u+1]], col[MainActivity.kub[0][u + 1]]);
+                fil[u+1] = MainActivity.kub[0][u+1];
+            }
         }
         for (i=1; i<3; i++) {
             for(u=0; u<9; u++) {
-                FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), Color.TRANSPARENT, col[MainActivity.kub[i+1][u+1]]);
+                if (fil[i*9 + u + 1] != MainActivity.kub[i+1][u+1]) {
+                    FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), col[fil[i*9 + u + 1]], col[MainActivity.kub[i + 1][u + 1]]);
+                    fil[i*9 + u + 1] = MainActivity.kub[i+1][u+1];
+                }
             }
         }
+        //mBitmap.createBitmap(mBitmap2);
     }
 
     private void FloodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor)
