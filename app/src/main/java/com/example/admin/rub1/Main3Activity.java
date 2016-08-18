@@ -21,7 +21,7 @@ public class Main3Activity extends Activity{
     SurfaceView surfaceView;
     ImageView imageView;
     static Camera camera;
-    Bitmap bm;
+    Bitmap bitmap;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -98,17 +98,30 @@ public class Main3Activity extends Activity{
             MainActivity.scan1 = false;
             MainActivity.scan = true;
         }
+        Camera.Parameters parms = camera.getParameters();
+        parms.setPictureSize(imageView.getHeight(), imageView.getWidth());
+        parms.setRotation(90);
+        camera.setParameters(parms);
+        camera.takePicture(null, null, null, mPictureCallback);
+        surfaceView.setVisibility(View.INVISIBLE);
+
+        scan();
+
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
 
     }
-    Camera.PictureCallback myPictureCallback_JPG = new Camera.PictureCallback(){
+
+    private void scan() {
+        
+    }
+
+    Camera.PictureCallback mPictureCallback = new Camera.PictureCallback(){
 
         @Override
         public void onPictureTaken(byte[] arg0, Camera arg1) {
-            // TODO Auto-generated method stub
-            bm = BitmapFactory.decodeByteArray(arg0, 0, arg0.length);
-            imageView.setImageBitmap(bm);
+            bitmap = BitmapFactory.decodeByteArray(arg0, 0, arg0.length);
+            imageView.setImageBitmap(bitmap);
         }};
 
 }
