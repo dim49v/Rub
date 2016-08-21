@@ -57,13 +57,12 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     boolean col_ch=false;
     boolean dra = true;
     boolean get_bitmap = true;
-    int ch1;
+    int ch1, pre_col;
     public Draw(Context context){
         super(context);
         for(i=0;i<7;i++){
             col[i]=MainActivity.colo[i];
         }
-        //mBitmap2 = Bitmap.createScaledBitmap(mBitmap, k, k, false);
         for (i=0; i<28; i++){
             fil[i] = 6;
         }
@@ -97,8 +96,6 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
             for (i = 0; i < 6; i++) {
                 mPaint.setColor(col[i]);
                 canvas.drawRect(i * xx / 6, 0, (i + 1) * xx / 6, xx / 6, mPaint);
-                mPaint.setColor(Color.BLACK);
-                canvas.drawText(Integer.toString(ost_col[i]), i * xx / 6, xx / 12, mPaint);
             }
             mPaint.setStrokeWidth(6);
             if (sel_col_n < 7) {
@@ -108,7 +105,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
             }
 
             mPaint.setStyle(Paint.Style.STROKE);
-
+            mPaint.setColor(Color.BLACK);
             Fill();
 
             if (!MainActivity.scan1) {
@@ -120,6 +117,11 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                     canvas.drawText("Продолжить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
                 } else {
                     canvas.drawText("Завершить сканирование", xx / 6, (int) (yy * 13.5 / 14), mPaint);
+                    for (i = 0; i < 6; i++) {
+                        mPaint.setColor(col[i]);
+                        mPaint.setColor(Color.BLACK);
+                        canvas.drawText(Integer.toString(ost_col[i]), i * xx / 6, xx / 12, mPaint);
+                    }
                 }
             }
             xq = (int) (xx * 0.1);
@@ -143,7 +145,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 st_32 = Bitmap.createScaledBitmap(st1_32, (int) ((double) st1_32.getWidth() / 2 / l * k), (int) ((double) st1_32.getHeight() / 2 / l * k), false);
                 st_41 = Bitmap.createScaledBitmap(st1_41, (int) ((double) st1_41.getWidth() / 2 / l * k), (int) ((double) st1_41.getHeight() / 2 / l * k), false);
                 if (ch1 < MainActivity.reshen.size()) {
-                    canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
+                    canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
                     if (!deistv) {
                         deistv = true;
                         switch (MainActivity.reshen.get(ch1)) {
@@ -249,14 +251,14 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     private void Fill() {
         for(u=0; u<9; u++) {
             if (fil[u+1] != MainActivity.kub[0][u+1]) {
-                FloodFill(mBitmap2, MainActivity.s.point_r(u),  col[fil[u+1]], col[MainActivity.kub[0][u + 1]]);
+                FloodFill(mBitmap2, MainActivity.s.point_r(u),  col[fil[u+1]], col[MainActivity.kub[0][u+1]]); //col[MainActivity.kub[0][u + 1]]);
                 fil[u+1] = MainActivity.kub[0][u+1];
             }
         }
         for (i=1; i<3; i++) {
             for(u=0; u<9; u++) {
                 if (fil[i*9 + u + 1] != MainActivity.kub[i+1][u+1]) {
-                    FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), col[fil[i*9 + u + 1]], col[MainActivity.kub[i + 1][u + 1]]);
+                    FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), col[fil[i*9 + u + 1]], col[MainActivity.kub[i+1][u+1]]); //col[MainActivity.kub[i + 1][u + 1]]);
                     fil[i*9 + u + 1] = MainActivity.kub[i+1][u+1];
                 }
             }
@@ -427,7 +429,26 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
 
     @Override
     public void colorChanged(int color) {
-        col[num]=color;
+        pre_col = col[num];
+        col[num] = color;
+        Fill_ch();
         invalidate();
+    }
+    private void Fill_ch() {
+        for(u=0; u<9; u++) {
+            if (fil[u+1] == num) {
+                FloodFill(mBitmap2, MainActivity.s.point_r(u),  pre_col, col[fil[u+1]]); //col[MainActivity.kub[0][u + 1]]);
+                //fil[u+1] = MainActivity.kub[0][u+1];
+            }
+        }
+        for (i=1; i<3; i++) {
+            for(u=0; u<9; u++) {
+                if (fil[i*9 + u + 1] == num) {
+                    FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), pre_col, col[fil[i*9 + u + 1]]); //col[MainActivity.kub[i + 1][u + 1]]);
+                    //fil[i*9 + u + 1] = MainActivity.kub[i+1][u+1];
+                }
+            }
+        }
+        //mBitmap.createBitmap(mBitmap2);
     }
 }

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     static int i, u;
     static Csl s;// = new Csl();
+    static Csl ss;
     static Csl1 s1;
     public static boolean crea = false;
     public static boolean scan = false;
@@ -68,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
             s1.Csl_c(l, k);
         }
     }
-
+    static void Csl_crea1(int l, int k){
+        ss = new Csl();
+        ss.Csl_c(l, k);
+    }
     public void onClick(View v){
         scan = false;
         scan1 = false;
@@ -671,6 +676,20 @@ public class MainActivity extends AppCompatActivity {
         simply();
         System.out.println(reshen.toString());
         Viv();
+        ch1 = 0;
+        for(i=0; i<6; i++){
+            for(u=2; u<10; u++){
+                if(kub[i][u]!=kub[i][1]){
+                    ch1 = 1;
+                }
+            }
+        }
+        if (ch1 == 0){
+            Toast toast = Toast.makeText(this, "Full", Toast.LENGTH_LONG);toast.show();
+        }else{
+            Toast toast = Toast.makeText(this, "Error", Toast.LENGTH_LONG);toast.show();
+        }
+
         reshh = true;
         for (i=0;i<6;i++){
             for (u=1;u<10;u++){
