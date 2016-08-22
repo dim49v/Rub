@@ -1,41 +1,22 @@
 package com.example.admin.rub1;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
-import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
-import android.hardware.display.DisplayManager;
-import android.opengl.Matrix;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
-import android.util.Size;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.security.Policy;
 import java.util.List;
 
 public class Main3Activity extends Activity {
@@ -47,6 +28,7 @@ public class Main3Activity extends Activity {
     int alpha;
     boolean bo = true;
     boolean sc = false;
+    boolean flash = false;
     ToggleButton toggleButton;
     Button button;
     public static int[] point = new int[27];
@@ -56,8 +38,45 @@ public class Main3Activity extends Activity {
     Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
     Camera.Parameters parameters;
     Camera.Size size;
+    SurfaceHolder holder;
+    SurfaceHolder.Callback callback = new SurfaceHolder.Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder holder) {
+            try {
+                System.out.println(surfaceView.getWidth() + "-" + surfaceView.getHeight() + " - ");
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                //camera.setParameters(parameters);
+                if (cameraInfo.orientation == 0 | cameraInfo.orientation == 180){
+                    size.width = imageView.getWidth();
+                    size.height = imageView.getHeight();
+                }else {
+                    size.width = imageView.getHeight();
+                    size.height = imageView.getWidth();
+                }
+                parameters.setPictureSize(size.width, size.height);
+                parameters.setPreviewSize(size.width, size.height);
+                camera.setParameters(parameters);
+                camera.stopPreview();
+                camera.startPreview();
+
+                camera.setPreviewDisplay(holder);
+                camera.startPreview();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder holder, int format,
+                                   int width, int height) {
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder holder) {
+        }
+    };
+
+   // @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,53 +86,16 @@ public class Main3Activity extends Activity {
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
         button = (Button) findViewById(R.id.button1);
-
         if (!getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             toggleButton.setVisibility(View.INVISIBLE);
         }
         if (!getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS)) {
             button.setVisibility(View.INVISIBLE);
         }
-
         imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.cub));
-        //surfaceView.setLayoutParams(frameLayout.getLayoutParams());
-        alpha = imageView.getImageAlpha();
-        imageView.setImageAlpha(150);
-
-        SurfaceHolder holder = surfaceView.getHolder();
-        holder.addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                try {
-                    System.out.println(surfaceView.getWidth() + "-" + surfaceView.getHeight() + " - ");
-                    camera.setPreviewDisplay(holder);
-                    camera.startPreview();
-                    if (cameraInfo.orientation == 0 | cameraInfo.orientation == 180){
-                        size.width = imageView.getWidth();
-                        size.height = imageView.getHeight();
-                    }else {
-                        size.width = imageView.getHeight();
-                        size.height = imageView.getWidth();
-                    }
-                    parameters.setPictureSize(size.width, size.height);
-                    camera.setParameters(parameters);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format,
-                                       int width, int height) {
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-            }
-        });
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    //@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onResume() {
         super.onResume();
@@ -136,8 +118,16 @@ public class Main3Activity extends Activity {
                 System.out.println(size.width + "-" + size.height);
             }
             parameters.setPictureSize(size.width, size.height);
+            if (flash) {
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            } else {
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            }
             camera.setParameters(parameters);
         }
+        holder = surfaceView.getHolder();
+        holder.addCallback(callback);
+        surfaceView.destroyDrawingCache();
     }
 
     @Override
@@ -145,11 +135,15 @@ public class Main3Activity extends Activity {
         super.onPause();
         if (camera != null) camera.release();
         camera = null;
+        holder.removeCallback(callback);
+        holder = null;
+
     }
 
     public void onClickLight(View v) {
+        flash = ((ToggleButton) v).isChecked();
         Camera.Parameters prm = camera.getParameters();
-        if (((ToggleButton) v).isChecked()) {
+        if (flash) {
             prm.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         } else {
             prm.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
@@ -158,8 +152,15 @@ public class Main3Activity extends Activity {
     }
 
     public void onClickAutoFocus(View view) {
-        Camera.AutoFocusCallback cb = null;
-        camera.autoFocus(cb);
+        /*parameters = camera.getParameters();
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_FIXED);
+        camera.setParameters(parameters);*/
+        camera.autoFocus(new Camera.AutoFocusCallback(){
+            @Override
+            public void onAutoFocus(boolean success, Camera camera) {
+
+            }
+        });
     }
 
     public static void back() {
@@ -167,7 +168,7 @@ public class Main3Activity extends Activity {
         camera = null;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    //@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void onClickScan(View v) {
         if (MainActivity.scan1) {
             if (MainActivity.scan) {
@@ -180,6 +181,7 @@ public class Main3Activity extends Activity {
 
         camera.takePicture(null, null, null, mPictureCallback);
         toggleButton.setChecked(false);
+        flash = false;
         //surfaceView.setVisibility(View.INVISIBLE);
         //imageView.setImageAlpha(alpha);
 
@@ -254,6 +256,7 @@ public class Main3Activity extends Activity {
                 MainActivity.kub[i][u] = point[(i - 1) * 9 + u - 1];
             }
         }
+        bitmap.recycle();
         //BitmapDrawable bd = new BitmapDrawable(getResources(), bitmap);
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);

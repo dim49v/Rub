@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.v4.graphics.BitmapCompat;
 import android.test.InstrumentationTestCase;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -39,17 +40,8 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     int[] ost_col = new int[6];
     int[] fil = new int[28];
     int i, u, num;
-    public Bitmap mBitmap;// = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
+    //public Bitmap mBitmap;
     Bitmap st_01, st_02, st_11, st_12, st_21, st_22, st_31, st_32, st_41;
-    Bitmap st1_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
-    Bitmap st1_02 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st2);
-    Bitmap st1_11 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st11);
-    Bitmap st1_12 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st12);
-    Bitmap st1_21 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st21);
-    Bitmap st1_22 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st22);
-    Bitmap st1_31 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st31);
-    Bitmap st1_32 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st32);
-    Bitmap st1_41 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st41);
     public boolean deistv=false;
     public int sel_col_n=7;
     public static int k, l;
@@ -66,7 +58,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
         for (i=0; i<28; i++){
             fil[i] = 6;
         }
-        mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
+        //mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
     }
 
     @Override
@@ -78,9 +70,35 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 l = 947;
                 k = (int) (xx * 0.8);
                 MainActivity.Csl_crea(l, k);
-                mBitmap2 = Bitmap.createScaledBitmap(mBitmap, k, k, false);
+                mBitmap2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.cub), k, k, false);
                 get_bitmap = false;
                 //System.out.println("123456");
+                st_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
+                st_01 = Bitmap.createScaledBitmap(st_01, (int) ((double) st_01.getWidth() / 2 / l * k), (int) ((double) st_01.getHeight() / 2 / l * k), false);
+
+                st_02 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st2);
+                st_02 = Bitmap.createScaledBitmap(st_02, (int) ((double) st_02.getWidth() / 2 / l * k), (int) ((double) st_02.getHeight() / 2 / l * k), false);
+
+                st_11 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st11);
+                st_11 = Bitmap.createScaledBitmap(st_11, (int) ((double) st_11.getWidth() / 2 / l * k), (int) ((double) st_11.getHeight() / 2 / l * k), false);
+
+                st_12 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st12);
+                st_12 = Bitmap.createScaledBitmap(st_12, (int) ((double) st_12.getWidth() / 2 / l * k), (int) ((double) st_12.getHeight() / 2 / l * k), false);
+
+                st_21 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st21);
+                st_21 = Bitmap.createScaledBitmap(st_21, (int) ((double) st_21.getWidth() / 2 / l * k), (int) ((double) st_21.getHeight() / 2 / l * k), false);
+
+                st_22 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st22);
+                st_22 = Bitmap.createScaledBitmap(st_22, (int) ((double) st_22.getWidth() / 2 / l * k), (int) ((double) st_22.getHeight() / 2 / l * k), false);
+
+                st_31 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st31);
+                st_31 = Bitmap.createScaledBitmap(st_31, (int) ((double) st_31.getWidth() / 2 / l * k), (int) ((double) st_31.getHeight() / 2 / l * k), false);
+
+                st_32 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st32);
+                st_32 = Bitmap.createScaledBitmap(st_32, (int) ((double) st_32.getWidth() / 2 / l * k), (int) ((double) st_32.getHeight() / 2 / l * k), false);
+
+                st_41 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st41);
+                st_41 = Bitmap.createScaledBitmap(st_41, (int) ((double) st_41.getWidth() / 2 / l * k), (int) ((double) st_41.getHeight() / 2 / l * k), false);
             }
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawColor(Color.WHITE);
@@ -135,15 +153,6 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 //if (ch1<MainActivity.reshen.size()) {
                 //    canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
                 //}
-                st_01 = Bitmap.createScaledBitmap(st1_01, (int) ((double) st1_01.getWidth() / 2 / l * k), (int) ((double) st1_01.getHeight() / 2 / l * k), false);
-                st_02 = Bitmap.createScaledBitmap(st1_02, (int) ((double) st1_02.getWidth() / 2 / l * k), (int) ((double) st1_02.getHeight() / 2 / l * k), false);
-                st_11 = Bitmap.createScaledBitmap(st1_11, (int) ((double) st1_11.getWidth() / 2 / l * k), (int) ((double) st1_11.getHeight() / 2 / l * k), false);
-                st_12 = Bitmap.createScaledBitmap(st1_12, (int) ((double) st1_12.getWidth() / 2 / l * k), (int) ((double) st1_12.getHeight() / 2 / l * k), false);
-                st_21 = Bitmap.createScaledBitmap(st1_21, (int) ((double) st1_21.getWidth() / 2 / l * k), (int) ((double) st1_21.getHeight() / 2 / l * k), false);
-                st_22 = Bitmap.createScaledBitmap(st1_22, (int) ((double) st1_22.getWidth() / 2 / l * k), (int) ((double) st1_22.getHeight() / 2 / l * k), false);
-                st_31 = Bitmap.createScaledBitmap(st1_31, (int) ((double) st1_31.getWidth() / 2 / l * k), (int) ((double) st1_31.getHeight() / 2 / l * k), false);
-                st_32 = Bitmap.createScaledBitmap(st1_32, (int) ((double) st1_32.getWidth() / 2 / l * k), (int) ((double) st1_32.getHeight() / 2 / l * k), false);
-                st_41 = Bitmap.createScaledBitmap(st1_41, (int) ((double) st1_41.getWidth() / 2 / l * k), (int) ((double) st1_41.getHeight() / 2 / l * k), false);
                 if (ch1 < MainActivity.reshen.size()) {
                     canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
                     if (!deistv) {
