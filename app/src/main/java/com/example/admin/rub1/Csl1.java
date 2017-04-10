@@ -6,6 +6,7 @@ import android.graphics.Point;
  * Created by Admin on 28.05.2016.
  */
 public class Csl1 {
+    //класс точек вывода поворотов граней
     Point[] point = new Point[10];
     Point point_r(int i){
         return new Point(point[i].x, point[i].y);

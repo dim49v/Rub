@@ -1,30 +1,19 @@
 package com.example.admin.rub1;
 
-import android.app.Activity;
 import android.app.Instrumentation;
-import android.app.Notification;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.support.v4.graphics.BitmapCompat;
-import android.test.InstrumentationTestCase;
-import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by Admin on 18.04.2016.
@@ -58,13 +47,13 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
         for (i=0; i<28; i++){
             fil[i] = 6;
         }
-        //mBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.cub);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if(dra) {
             if (get_bitmap) {
+                //загрузка изображений
                 xx = canvas.getWidth();
                 yy = canvas.getHeight();
                 l = 947;
@@ -72,7 +61,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 MainActivity.Csl_crea(l, k);
                 mBitmap2 = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.cub), k, k, false);
                 get_bitmap = false;
-                //System.out.println("123456");
+
                 st_01 = BitmapFactory.decodeResource(this.getResources(), R.drawable.st1);
                 st_01 = Bitmap.createScaledBitmap(st_01, (int) ((double) st_01.getWidth() / 2 / l * k), (int) ((double) st_01.getHeight() / 2 / l * k), false);
 
@@ -102,14 +91,17 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
             }
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawColor(Color.WHITE);
+            //обнуление цветов
             for (i = 0; i < 6; i++) {
                 ost_col[i] = 0;
             }
+            //подсчет закрашеных ячеек
             for (i = 0; i < 6; i++) {
                 for (u = 1; u < 10; u++) {
                     ost_col[MainActivity.kub[i][u]]++;
                 }
             }
+            //вывод цветов и информации по ним
             mPaint.setTextSize(30);
             for (i = 0; i < 6; i++) {
                 mPaint.setColor(col[i]);
@@ -121,11 +113,11 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 mPaint.setColor(Color.BLACK);
                 canvas.drawRect(sel_col_n * xx / 6, 0, (sel_col_n + 1) * xx / 6, xx / 6, mPaint);
             }
-
+            //закраска кубика
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setColor(Color.BLACK);
             Fill();
-
+            //определение этапа работы приложения
             if (!MainActivity.scan1) {
 
                 canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
@@ -142,19 +134,19 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                     }
                 }
             }
+            //вывод кубика на экран
             xq = (int) (xx * 0.1);
             yq = (int) ((yy - (xx / 6)) * 0.3);
             canvas.drawBitmap(mBitmap2, xq, yq, mPaint);
+            //режим вывода сборки кубика
             if (MainActivity.reshh) {
                 canvas.drawRect(0, yy * 10 / 11, xx, yy, mPaint);
                 mPaint.setStrokeWidth(2);
                 mPaint.setTextSize(30);
                 canvas.drawText("Следующий шаг", xx / 6, (int) (yy * 13.5 / 14), mPaint);
-                //if (ch1<MainActivity.reshen.size()) {
-                //    canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.kol_d) + ", " + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
-                //}
                 if (ch1 < MainActivity.reshen.size()) {
                     canvas.drawText("Шаг " + Integer.toString(ch1 + 1) + "(" + Integer.toString(MainActivity.reshen.size()) + ")", xx / 20, xx / 6 + yy / 30, mPaint);
+                    //вывод каждого шага
                     if (!deistv) {
                         deistv = true;
                         switch (MainActivity.reshen.get(ch1)) {
@@ -227,13 +219,11 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                                 MainActivity.OV1();
                                 break;
 
-                            case 222:
-
-                                break;
                         }
                     }
                 }
                 if (ch1 > MainActivity.reshen.size()){
+                    //переход в меню
                     MainActivity.tv1.setText("Готово!");
                     MainActivity.scan1 = false;
                     MainActivity.scan = false;
@@ -255,8 +245,11 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 }
             }
         }
+
     }
 
+
+    //заливка ячеек кубика в нужный цвет, если это необходимо
     private void Fill() {
         for(u=0; u<9; u++) {
             if (fil[u+1] != MainActivity.kub[0][u+1]) {
@@ -272,9 +265,8 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                 }
             }
         }
-        //mBitmap.createBitmap(mBitmap2);
     }
-
+    //процедура заливки
     private void FloodFill(Bitmap bmp, Point pt, int targetColor, int replacementColor)
     {
         Queue<Point> q = new LinkedList<Point>();
@@ -308,16 +300,20 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
         }
     }
 
+    //обработка нажатий
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        //оперделение точки нажатия
         x = (int)event.getX();
         y = (int)event.getY();
+        //определие типа нажатия
         int action = event.getAction();
         switch (action) {
             case MotionEvent.ACTION_UP:
                 if (y<xx/6) {
+                    //изменение базового цвета
                     num = x / (xx / 6);
-                    if (num == sel_col_n) {
+                    if (num == sel_col_n) {//вызов окна изменения цвета
                         new ColorPickerDialog(this.getContext(), this, col[num]).show();
                     } else {
                         sel_col_n = num;
@@ -326,6 +322,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                     if (y>yy*10/11){
                         if (!MainActivity.scan) {
                             if (!MainActivity.scan1) {
+                                //переход к сканированию 4-6 грани
                                 MainActivity.OP();
                                 MainActivity.OP();
                                 MainActivity.OV1();
@@ -350,6 +347,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
 
                             } else {
                                 if (!MainActivity.scan1){
+                                    //окончание сканирования
                                     MainActivity.scan1 = true;
                                     dra = false;
                                     new Thread() {
@@ -360,7 +358,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                                                 inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
 
                                             } catch (Exception e) {
-                                                //Log.e("Exception when sendKeyDownUpSync", e.toString());
+
                                             }
                                         }
                                     }.start();
@@ -377,7 +375,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                                             inst.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
                                             Main3Activity.back();
                                         } catch (Exception e) {
-                                            //Log.e("Exception when sendKeyDownUpSync", e.toString());
+
                                         }
                                     }
                                 }.start();
@@ -385,12 +383,13 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
                             }
                         }
                         if (MainActivity.reshh){
+                            //следующий шаг
                             ch1++;
                             deistv=false;
                         }
 
                     }else {
-                        Change_col();
+                        Change_col();//изменеие цвета ячейки
                         if (!col_ch) {
                             sel_col_n = 7;
                         }
@@ -407,7 +406,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
         for (i = 0; i < 27; i++) {
             if (sel_col_n < 7) {
                 int xm = x-(int)(xx*0.1);
-
+                //определение ячейки, в которую произведено нажатие
                 if (Dlina(MainActivity.s.point_r(i), new Point(xm, y - (int) ((yy - (xx / 6)) * 0.3))) < MainActivity.s.rad_r(i)) {
                     strr = Integer.toString(i);
                     if (i < 9) {
@@ -435,7 +434,7 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
         yd=Math.abs(y1-y2);
         return (int)Math.sqrt(Math.pow(xd,2)+Math.pow(yd,2));
     }
-
+    //перерисовка ячеек при изменении базового цвета
     @Override
     public void colorChanged(int color) {
         pre_col = col[num];
@@ -446,18 +445,15 @@ public class Draw extends View implements ColorPickerDialog.OnColorChangedListen
     private void Fill_ch() {
         for(u=0; u<9; u++) {
             if (fil[u+1] == num) {
-                FloodFill(mBitmap2, MainActivity.s.point_r(u),  pre_col, col[fil[u+1]]); //col[MainActivity.kub[0][u + 1]]);
-                //fil[u+1] = MainActivity.kub[0][u+1];
+                FloodFill(mBitmap2, MainActivity.s.point_r(u),  pre_col, col[fil[u+1]]);
             }
         }
         for (i=1; i<3; i++) {
             for(u=0; u<9; u++) {
                 if (fil[i*9 + u + 1] == num) {
-                    FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), pre_col, col[fil[i*9 + u + 1]]); //col[MainActivity.kub[i + 1][u + 1]]);
-                    //fil[i*9 + u + 1] = MainActivity.kub[i+1][u+1];
+                    FloodFill(mBitmap2, MainActivity.s.point_r(i * 9 + u), pre_col, col[fil[i*9 + u + 1]]);
                 }
             }
         }
-        //mBitmap.createBitmap(mBitmap2);
     }
 }

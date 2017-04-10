@@ -1,5 +1,6 @@
 package com.example.admin.rub1;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,12 +22,12 @@ import android.widget.ToggleButton;
 import java.util.List;
 
 public class Main3Activity extends Activity {
+    //работа с камерой
     SurfaceView surfaceView;
     ImageView imageView;
     static Camera camera;
     Bitmap bitmap;
     FrameLayout frameLayout;
-    int alpha;
     boolean bo = true;
     boolean sc = false;
     boolean flash = false;
@@ -76,7 +78,7 @@ public class Main3Activity extends Activity {
         }
     };
 
-   // @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,7 @@ public class Main3Activity extends Activity {
         imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.cub));
     }
 
-    //@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onResume() {
         super.onResume();
@@ -152,9 +154,6 @@ public class Main3Activity extends Activity {
     }
 
     public void onClickAutoFocus(View view) {
-        /*parameters = camera.getParameters();
-        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_FIXED);
-        camera.setParameters(parameters);*/
         camera.autoFocus(new Camera.AutoFocusCallback(){
             @Override
             public void onAutoFocus(boolean success, Camera camera) {
@@ -168,7 +167,7 @@ public class Main3Activity extends Activity {
         camera = null;
     }
 
-    //@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void onClickScan(View v) {
         if (MainActivity.scan1) {
             if (MainActivity.scan) {
@@ -182,18 +181,15 @@ public class Main3Activity extends Activity {
         camera.takePicture(null, null, null, mPictureCallback);
         toggleButton.setChecked(false);
         flash = false;
-        //surfaceView.setVisibility(View.INVISIBLE);
-        //imageView.setImageAlpha(alpha);
-
     }
-
+    //сканирование
     private void scan() {
         int c1, c2, c3, c4, bl, re, gr, dr, dg, db, koef;
         double al;
         int l = 947;
         int k = imageView.getWidth();
         MainActivity.Csl_crea1(l, k);
-        koef = 35;
+        koef = 32;
         if(sc){
             o_col=6;
             for (i = 0; i < 6; i++) {
@@ -212,18 +208,22 @@ public class Main3Activity extends Activity {
             c2 = bitmap.getPixel(MainActivity.ss.point_r(por).x, MainActivity.ss.point_r(por).y + 1 + imageView.getHeight() / 2 - imageView.getWidth() / 2);
             c3 = bitmap.getPixel(MainActivity.ss.point_r(por).x + 1, MainActivity.ss.point_r(por).y + imageView.getHeight() / 2 - imageView.getWidth() / 2);
             c4 = bitmap.getPixel(MainActivity.ss.point_r(por).x + 1, MainActivity.ss.point_r(por).y + 1 + imageView.getHeight() / 2 - imageView.getWidth() / 2);
-            re = ((Color.red(c1)+Color.red(c2)+Color.red(c3)+Color.red(c4))/4);///64;
-            gr = ((Color.green(c1)+Color.green(c2)+Color.green(c3)+Color.green(c4))/4);///64;
-            bl = ((Color.blue(c1)+Color.blue(c2)+Color.blue(c3)+Color.blue(c4))/4);///64;
-            al = (255/(double)(Math.max(Math.max(bl, re), gr)+1));
-            //System.out.println(re + " " + gr + " " + bl+"al = "+al+" ");
+            //определение средних значений каждого оттенка по 4 точкам
+            //с1, с2, с3, с4 - цвета RGB
+            re = ((Color.red(c1)+ Color.red(c2)+ Color.red(c3)+ Color.red(c4))/4);
+            gr = ((Color.green(c1)+Color.green(c2)+Color.green(c3)+Color.green(c4))/4);
+            bl = ((Color.blue(c1)+Color.blue(c2)+Color.blue(c3)+Color.blue(c4))/4);
+            //определение самого яркого оттенка и вычисление коэфицента
+            al = (256/(double)(Math.max(Math.max(bl, re), gr)+1));
+            //повышение яркости всех оттенков
             bl = (int)((double)bl*al);
             re = (int)((double)re*al);
             gr = (int)((double)gr*al);
-            //System.out.print("___"+re + " " + gr + " " + bl+"___");
-            bl = bl / koef;//52
+            //упрощение каждого оттенка до 3 бит
+            bl = bl / koef;
             re = re / koef;
             gr = gr / koef;
+
             bo = true;
             for(u=0; u<o_col; u++){
                 dr = Math.abs(s_col[u][0] - re);
@@ -257,7 +257,6 @@ public class Main3Activity extends Activity {
             }
         }
         bitmap.recycle();
-        //BitmapDrawable bd = new BitmapDrawable(getResources(), bitmap);
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
     }
@@ -267,7 +266,6 @@ public class Main3Activity extends Activity {
         @Override
         public void onPictureTaken(byte[] arg0, Camera arg1) {
             bitmap = BitmapFactory.decodeByteArray(arg0, 0, arg0.length);
-            //imageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
             scan();
         }
     };

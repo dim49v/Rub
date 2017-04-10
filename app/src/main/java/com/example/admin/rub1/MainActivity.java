@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean scan = false;
     public static boolean scan1 = false;
     public static boolean reshh = false;
+
     public static Button bt1, bt2;
     public static TextView tv1;
     public static ArrayList<Integer> reshen = new ArrayList<Integer>();
@@ -33,20 +35,21 @@ public class MainActivity extends AppCompatActivity {
     private int main_c1, main_c, ch1, ch2, ch3, ch4;
     private int krest[][] = new int[3][4];
     private boolean bo1, q1, q2, q3;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         tv1 = (TextView) findViewById(R.id.textView);
         bt1 = (Button)findViewById(R.id.button);
         bt2 = (Button)findViewById(R.id.button2);
-
+        imageView = (ImageView) findViewById(R.id.imageView);
 
     }
     @Override
     protected void onResume() {
+        //вывод копки "решение"
         super.onResume();
         if (scan && scan1){
             bt2.setVisibility(View.VISIBLE);
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     static void Csl_crea(int l, int k){
        if (!crea) {
+            //инициализация классов
             s = new Csl();
             s.Csl_c(l, k);
             crea = true;
@@ -65,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     static void Csl_crea1(int l, int k){
+        //инициализация классов
         ss = new Csl();
         ss.Csl_c(l, k);
     }
     public void onClick(View v){
+        //расположение граней по умолчанию
         scan = false;
         scan1 = false;
         for(i=1;i<10;i++){
@@ -81,26 +87,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick2(View v){
-        resh();
+        resh();//нахождение алгоритма сборки
     }
 
     private void resh() {
         Viv();
         tv1.setText("Ожидание...");
-
         main_c = kub[0][5];
         ch1 = 0;
         bo1 = true;
         reshen.clear();
-        //boolean bo2 = true;
-        //boolean bo3 = true;
-        //boolean bo4 = true;
-
         for (i=0;i<6;i++){
             for (u=1;u<10;u++){
                 kub_r[i][u] = kub[i][u];
             }
         }
+        //стороны креста вниз
         while(ch1!=4) {
             ch1 = 0;
             if (kub[0][4] == main_c) {
@@ -258,8 +260,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //////////////////////4 storoni vnizu
 
+        //сборка креста
         while (!(kub[0][2]==main_c & kub[0][4]==main_c & kub[0][6]==main_c & kub[0][8]==main_c)) {
             if (kub[0][8] != main_c) {
                 main_c1 = Math.max(main_c,kub[2][5])*10 + Math.min(main_c, kub[2][5]);
@@ -281,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        ////////////////////////// krest
+        //углы верхнего пояса вниз
         ch1 = 0;
         for(u=0;u<4;u++){
             if (kub[0][7]==main_c | kub[1][3]==main_c | kub[2][1]==main_c){
@@ -306,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
             OV1();
         }
 
-        ////////////////////////////////ugli vnizu
+        //правильно расположение углов верхнего пояса
 
         while (!(kub[0][1]==main_c & kub[0][3]==main_c & kub[0][9]==main_c & kub[0][7]==main_c))
         {
@@ -356,9 +358,7 @@ public class MainActivity extends AppCompatActivity {
                 reshen.add(1);
             }
         }
-
-        //////////////////verhnii ryad
-
+        //сборка среднего пояса
         main_c = kub[5][5];
         bo1 = true;
         while(!(kub[1][4] == kub[1][5] & kub[1][6] == kub[1][5] & kub[2][4] == kub[2][5] & kub[2][6] == kub[2][5] & kub[3][4] == kub[3][5] & kub[3][6] == kub[3][5] & kub[4][4] == kub[4][5] & kub[4][6] == kub[4][5])) {
@@ -435,14 +435,12 @@ public class MainActivity extends AppCompatActivity {
                 bo1 = true;
             }
         }
-
-        ///////////////////////////////poyas
-
+        //переворот
         OP();
         OP();
         reshen.add(21); reshen.add(21);
 
-        //////////////////////////////perevorot
+        //верхний крест(без ориентирования)
 
         krest[0][0] = kub[0][4] + kub[1][2] - main_c;
         krest[0][1] = kub[0][8] + kub[2][2] - main_c;
@@ -457,17 +455,17 @@ public class MainActivity extends AppCompatActivity {
         for(i=0; i<4; i++){
             for(u=0; u<4; u++){
                 if(krest[0][0] == krest[1][1] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][2] & krest[0][3] == krest[1][3]){
-                    ch1 = 1;  ////////1-pomenyat mestami 2 kletki
+                    ch1 = 1;  //1-поменять места 2 клетки
                     ch2 = u;
                     ch3 = i;
                 }
                 if(krest[0][0] == krest[1][1] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][3] & krest[0][3] == krest[1][2]){
-                    ch1 = 2;  ////////2-pomenyat mestami 4 kletki
+                    ch1 = 2;  //2-поменять места 4 клетки
                     ch2 = u;
                     ch3 = i;
                 }
                 if(krest[0][0] == krest[1][0] & krest[0][1] == krest[1][1] & krest[0][2] == krest[1][2] & krest[0][3] == krest[1][3]){
-                    ch1 = 3;  ////////3-vse norm
+                    ch1 = 3;  //3-все на местах
                     ch2 = u;
                     ch3 = i;
                 }
@@ -529,10 +527,6 @@ public class MainActivity extends AppCompatActivity {
                 reshen.add(4); reshen.add(1); reshen.add(2); reshen.add(4); reshen.add(8); reshen.add(10); reshen.add(7);
                 V(); V();
                 reshen.add(4); reshen.add(4);
-                /*while(kub[1][2] + kub[0][4] - main_c != kub[1][5]){
-                    V();
-                    reshen.add(4);
-                }*/
                 break;
             case 3:
                break;
@@ -542,7 +536,7 @@ public class MainActivity extends AppCompatActivity {
             reshen.add(4);
         }
 
-        //////////////////////////verhniy krest(bez povorota)
+        //ориентирование верхнего креста
 
         ch1 = 0;
         for (i=0; i<4; i++){
@@ -558,8 +552,7 @@ public class MainActivity extends AppCompatActivity {
             reshen.add(4);
         }
 
-        //////////////////////////verhniy krest polnostyu
-        Viv();
+        //выставление верхнил углов(без ориентирования)
 
         ch2 = 0;
         for (i=0; i<4; i++){
@@ -574,8 +567,6 @@ public class MainActivity extends AppCompatActivity {
             }
             krest[0][i] = ch1;
             krest[1][i] = Math.max(kub[1][5], kub[2][5]) * 10 + Math.min(kub[1][5], kub[2][5]);
-            //System.out.println(Integer.toString(krest[0][i]));
-            //System.out.println(Integer.toString(krest[1][i]));
             if (krest[0][i] == krest[1][i]){
                 ch2++;
                 ch3 = i;
@@ -624,8 +615,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 krest[0][i] = ch1;
                 krest[1][i] = Math.max(kub[1][5], kub[2][5]) * 10 + Math.min(kub[1][5], kub[2][5]);
-                //System.out.println(Integer.toString(krest[0][i]));
-                //System.out.println(Integer.toString(krest[1][i]));
                 if (krest[0][i] == krest[1][i]){
                     ch2++;
                     ch3 = i;
@@ -634,15 +623,13 @@ public class MainActivity extends AppCompatActivity {
             }
             if (krest[0][0] == krest[1][2] & krest[0][1] == krest[1][0] & krest[0][2] == krest[1][1]){
                 po_st();
-                //System.out.println("po_st");
             }
             if (krest[0][0] == krest[1][1] & krest[0][1] == krest[1][2] & krest[0][2] == krest[1][0]){
                 pr_st();
-                //System.out.println("pr_st");
             }
         }
 
-        ////////////////////////////vistavleni ugli
+        //ориентирование верхних углов
 
         ch1 = 0;
         for (i=0; i<4; i++){
@@ -663,11 +650,11 @@ public class MainActivity extends AppCompatActivity {
             reshen.add(4);
         }
 
-        ///////////////////////////konec
+        //окончание сборки
 
         kol_d = reshen.size();
         System.out.println(reshen.toString());
-        simply();
+        simply();//сокращение ходов
         System.out.println(reshen.toString());
         Viv();
         ch1 = 0;
@@ -696,6 +683,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void simply() {
+        //сокращение ходов
         q1 = true;
         reshen.add(111);
         reshen.add(111);
@@ -739,12 +727,11 @@ public class MainActivity extends AppCompatActivity {
                     q1 = true;
                 }
             }
-            //System.out.println("___" + Integer.toString(reshen.size()));
         }
         reshen.remove(reshen.size()-1);
         reshen.remove(reshen.size()-1);
     }
-
+    //процедуры алгоритма сборки
     private void po_st() {
         P1(); F1(); L1(); F(); P(); F1(); L(); F();
         reshen.add(8); reshen.add(7); reshen.add(9); reshen.add(1); reshen.add(2); reshen.add(7); reshen.add(3); reshen.add(1);
@@ -753,7 +740,7 @@ public class MainActivity extends AppCompatActivity {
         F1(); L1(); F(); P1(); F1(); L(); F(); P();
         reshen.add(7); reshen.add(9); reshen.add(1); reshen.add(8); reshen.add(7); reshen.add(3); reshen.add(1); reshen.add(2);
     }
-
+    //отладка
     static void Viv() {
         System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
         System.out.println("        "+kub[0][1]+" "+kub[0][2]+" "+kub[0][3]);
@@ -777,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("        "+kub[5][4]+" "+kub[5][5]+" "+kub[5][6]);
         System.out.println("        "+kub[5][7]+" "+kub[5][8]+" "+kub[5][9]);
     }
-
+    //процедуры поворотов граней
     static void F(){
         dp[0]=kub[2][1];
         kub[2][1]=kub[2][7];
